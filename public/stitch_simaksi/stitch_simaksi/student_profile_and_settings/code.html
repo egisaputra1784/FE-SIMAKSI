@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Student Profile and Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1745cf",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111521",
+                        "neutral-soft": "#f0f1f4",
+                        "danger": "#ef4444"
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Lexend', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-[#111318]">
+<!-- Main Container (Mobile Form Factor) -->
+<div class="relative mx-auto min-h-screen max-w-md w-full flex flex-col bg-background-light dark:bg-background-dark overflow-x-hidden">
+<!-- Header / Top App Bar -->
+<div class="sticky top-0 z-10 flex items-center bg-white/80 backdrop-blur-md dark:bg-background-dark/80 px-4 py-3 border-b border-primary/10">
+<div class="flex items-center justify-center size-10 rounded-full hover:bg-neutral-soft transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-primary text-2xl">arrow_back_ios_new</span>
+</div>
+<h1 class="flex-1 text-center text-lg font-bold leading-tight tracking-tight pr-10">Profil</h1>
+</div>
+<!-- Student Identity Section -->
+<div class="flex flex-col items-center py-8 px-4 bg-white dark:bg-slate-900 mb-6 shadow-sm">
+<div class="relative">
+<div class="size-32 rounded-full border-4 border-primary/10 p-1">
+<div class="h-full w-full rounded-full bg-center bg-cover bg-no-repeat shadow-inner" data-alt="Professional portrait of a male student smiling" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBiS3XZSCS9LhH0w3m-kxScuMKOyanuUnJqbcAEC1uGHHncBo1F0X_7FQJ1hZIigKHhz4d0UNK1Z_wbBqCAaaoYK7uhgqYhiwax6pYK8lW5k2YiqvlxwHmGqU6sMfo3-xQr5FKyixKZBF0018mHOC8wyhfUm712pWv1Hae7guCVky8Phie1ICfWZW40f74Lkmp0S0KcCuGXoczw1hO0IhMQ_MuJLQYXEpaKUiQnPB9mVeGFuJeKOScZOfYly6lYhfmiQCoUCQGO_l8");'>
+</div>
+</div>
+<div class="absolute bottom-1 right-1 bg-primary text-white p-2 rounded-full shadow-lg border-2 border-white">
+<span class="material-symbols-outlined text-[18px]">photo_camera</span>
+</div>
+</div>
+<div class="mt-4 text-center">
+<h2 class="text-2xl font-bold text-[#111318] dark:text-white">Budi Santoso</h2>
+<p class="text-primary font-medium mt-1">NISN: 0012345678</p>
+<span class="inline-block mt-2 px-3 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-full uppercase tracking-wider">Kelas XII - IPA 1</span>
+</div>
+</div>
+<!-- Settings Content -->
+<div class="flex-1 px-4 space-y-4 pb-10">
+<!-- Section Label -->
+<p class="text-sm font-semibold text-primary/60 uppercase tracking-widest pl-1">Akun &amp; Keamanan</p>
+<!-- Settings List -->
+<div class="space-y-1 bg-white dark:bg-slate-900 rounded-xl shadow-sm overflow-hidden border border-primary/5">
+<!-- Edit Profile -->
+<button class="w-full flex items-center gap-4 px-4 py-4 hover:bg-neutral-soft dark:hover:bg-slate-800 transition-colors group">
+<div class="flex items-center justify-center size-10 rounded-lg bg-primary/10 text-primary">
+<span class="material-symbols-outlined">person</span>
+</div>
+<span class="flex-1 text-left font-medium text-[#111318] dark:text-white">Edit Profil</span>
+<span class="material-symbols-outlined text-gray-400 group-hover:translate-x-1 transition-transform">chevron_right</span>
+</button>
+<!-- Change Password -->
+<button class="w-full flex items-center gap-4 px-4 py-4 border-t border-primary/5 hover:bg-neutral-soft dark:hover:bg-slate-800 transition-colors group">
+<div class="flex items-center justify-center size-10 rounded-lg bg-primary/10 text-primary">
+<span class="material-symbols-outlined">lock</span>
+</div>
+<span class="flex-1 text-left font-medium text-[#111318] dark:text-white">Ganti Password</span>
+<span class="material-symbols-outlined text-gray-400 group-hover:translate-x-1 transition-transform">chevron_right</span>
+</button>
+</div>
+<!-- Preferences Label -->
+<p class="text-sm font-semibold text-primary/60 uppercase tracking-widest pl-1 pt-2">Preferensi</p>
+<div class="space-y-1 bg-white dark:bg-slate-900 rounded-xl shadow-sm overflow-hidden border border-primary/5">
+<!-- Notifications Toggle -->
+<div class="flex items-center gap-4 px-4 py-4 transition-colors">
+<div class="flex items-center justify-center size-10 rounded-lg bg-primary/10 text-primary">
+<span class="material-symbols-outlined">notifications_active</span>
+</div>
+<div class="flex-1 text-left">
+<p class="font-medium text-[#111318] dark:text-white">Notifikasi</p>
+<p class="text-xs text-gray-500">Aktifkan pengingat jadwal &amp; tugas</p>
+</div>
+<label class="relative flex h-7 w-12 cursor-pointer items-center rounded-full border-none bg-gray-200 dark:bg-slate-700 p-1 transition-colors has-[:checked]:bg-primary">
+<input checked="" class="invisible absolute peer" type="checkbox"/>
+<div class="absolute left-1 h-5 w-5 rounded-full bg-white shadow-md transition-all peer-checked:translate-x-5"></div>
+</label>
+</div>
+<!-- Language Selection -->
+<button class="w-full flex items-center gap-4 px-4 py-4 border-t border-primary/5 hover:bg-neutral-soft dark:hover:bg-slate-800 transition-colors group">
+<div class="flex items-center justify-center size-10 rounded-lg bg-primary/10 text-primary">
+<span class="material-symbols-outlined">language</span>
+</div>
+<div class="flex-1 text-left">
+<p class="font-medium text-[#111318] dark:text-white">Bahasa</p>
+</div>
+<span class="text-sm text-gray-500 mr-1 font-medium">Indonesia</span>
+<span class="material-symbols-outlined text-gray-400 group-hover:translate-x-1 transition-transform">chevron_right</span>
+</button>
+</div>
+<!-- App Info Label -->
+<p class="text-sm font-semibold text-primary/60 uppercase tracking-widest pl-1 pt-2">Lainnya</p>
+<div class="space-y-1 bg-white dark:bg-slate-900 rounded-xl shadow-sm overflow-hidden border border-primary/5">
+<button class="w-full flex items-center gap-4 px-4 py-4 hover:bg-neutral-soft dark:hover:bg-slate-800 transition-colors group">
+<div class="flex items-center justify-center size-10 rounded-lg bg-primary/10 text-primary">
+<span class="material-symbols-outlined">info</span>
+</div>
+<span class="flex-1 text-left font-medium text-[#111318] dark:text-white">Tentang Aplikasi</span>
+<span class="material-symbols-outlined text-gray-400">chevron_right</span>
+</button>
+</div>
+<!-- Logout Button -->
+<div class="pt-6">
+<button class="w-full flex items-center justify-center gap-3 px-6 py-4 bg-danger/10 hover:bg-danger/20 text-danger rounded-xl font-bold transition-all border border-danger/20">
+<span class="material-symbols-outlined">logout</span>
+                    Keluar dari SIMAKSI
+                </button>
+<p class="mt-6 text-center text-xs text-gray-400 font-medium">Version 2.4.0 (Build 2023.10)</p>
+</div>
+</div>
+<!-- Bottom Navigation Spacer (iOS Home Indicator Area) -->
+<div class="h-8 w-full bg-white dark:bg-background-dark"></div>
+</div>
+</body></html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SIMAKSI - Student Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1745cf",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111521",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Lexend', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-[#111318]">
+<!-- Main Container (Mobile Form Factor) -->
+<div class="relative flex min-h-screen w-full flex-col max-w-md mx-auto bg-background-light dark:bg-background-dark overflow-x-hidden pb-24">
+<!-- Top App Bar -->
+<div class="flex items-center justify-between px-6 pt-6 pb-2 sticky top-0 bg-background-light/80 backdrop-blur-md z-10">
+<div class="flex items-center gap-3">
+<div class="size-10 shrink-0 rounded-full bg-primary/10 border-2 border-white overflow-hidden shadow-sm">
+<div class="w-full h-full bg-center bg-cover" data-alt="User profile picture placeholder" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB6pju1rCNZ2g8IR2aBjI14ktwWwGT22VlAu-qpCTh4Eqz9U1VoyrO4MCmK-GcWOlmM5F4Y6vJj5Hg2bsQMiG7l45ecsAZwVVWxSKvj2-ocav-2asJl0pAqMzCzi8TKr6PRy_hMqb9M-e3HEIDjNuIBOGg2-qpQtf-lHH6iXx-BjeM5WN-UDelNOglRvLuMfGpw7npfm0stSNQ2h97Gs1AQtTA1cgKKyxnrqi2l4oh0JPOShl7KayBSzrChdNJXN7jL4x6JR6xr6EQ");'></div>
+</div>
+<div>
+<p class="text-[10px] uppercase tracking-wider text-primary font-bold">Mahasiswa</p>
+<h1 class="text-sm font-bold text-gray-800">SIMAKSI</h1>
+</div>
+</div>
+<button class="flex items-center justify-center size-10 rounded-full bg-white shadow-sm text-gray-600">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+<!-- Greeting Section -->
+<div class="px-6 pt-6 pb-4">
+<h2 class="text-3xl font-bold tracking-tight text-[#111318]">Halo, Nama Siswa</h2>
+<p class="text-gray-500 text-sm mt-1">Senin, 23 Oktober 2023</p>
+</div>
+<!-- Attendance Summary -->
+<div class="px-6 mb-8">
+<div class="grid grid-cols-3 gap-3">
+<div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center">
+<span class="text-primary font-bold text-xl">2</span>
+<span class="text-[10px] text-gray-500 font-medium uppercase mt-1 tracking-wide">Izin</span>
+</div>
+<div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center">
+<span class="text-yellow-500 font-bold text-xl">1</span>
+<span class="text-[10px] text-gray-500 font-medium uppercase mt-1 tracking-wide">Sakit</span>
+</div>
+<div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center">
+<span class="text-red-500 font-bold text-xl">0</span>
+<span class="text-[10px] text-gray-500 font-medium uppercase mt-1 tracking-wide">Alpha</span>
+</div>
+</div>
+</div>
+<!-- Scan QR Central Action -->
+<div class="px-6 mb-8">
+<button class="w-full bg-primary py-8 rounded-2xl shadow-xl shadow-primary/20 flex flex-col items-center justify-center gap-3 text-white transition-transform active:scale-[0.98]">
+<div class="size-16 bg-white/20 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1">qr_code_scanner</span>
+</div>
+<div class="text-center">
+<p class="text-lg font-bold">Scan QR Absensi</p>
+<p class="text-xs text-white/70 font-light">Ketuk untuk mulai memindai</p>
+</div>
+</button>
+</div>
+<!-- Today's Schedule -->
+<div class="px-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-bold text-[#111318]">Jadwal Hari Ini</h3>
+<button class="text-xs font-bold text-primary">Lihat Semua</button>
+</div>
+<div class="space-y-4">
+<!-- Schedule Card 1 -->
+<div class="flex items-stretch gap-4 rounded-xl bg-white p-4 shadow-sm border border-gray-50">
+<div class="flex flex-col justify-center gap-1 flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="inline-block w-2 h-2 rounded-full bg-green-500"></span>
+<span class="text-[10px] font-bold text-green-600 uppercase">Sedang Berlangsung</span>
+</div>
+<p class="text-[#111318] text-base font-bold leading-tight">Matematika Diskrit</p>
+<div class="flex items-center gap-1 text-gray-500 mt-1">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<p class="text-xs font-normal">08:00 - 09:30</p>
+</div>
+<div class="flex items-center gap-1 text-gray-500">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<p class="text-xs font-normal">Ruang Lab Komputer A</p>
+</div>
+</div>
+<div class="w-24 shrink-0 bg-center bg-no-repeat aspect-square bg-cover rounded-lg" data-alt="Illustration of a discrete mathematics classroom" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCuq6jk6_Kc9Uo7QqdVUfh996Q3VVfwrozIFTC5yNwGFwehISYf57pO_cZGsWBVzeQF9QW6cnIzRb_qXZyIW686gpRv6DpFrhZHm4szuVWk2lUX8BcdINMUP1LO6QAOK7Ev0UNoHHOQlo-ucshuIEOsjLhIrXb44TulFvp9H5AXB1Eq1S9r9FSCJQKq8Kd4kLQ7f6oCWMzvFEPAsFNqraoJAt7YtHhHKR71JJ47-16kt6NuCqfe4XAJ41BST1Ci40cxRPYN8NV82Wg");'></div>
+</div>
+<!-- Schedule Card 2 -->
+<div class="flex items-stretch gap-4 rounded-xl bg-white p-4 shadow-sm border border-gray-50 opacity-70">
+<div class="flex flex-col justify-center gap-1 flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="inline-block w-2 h-2 rounded-full bg-gray-300"></span>
+<span class="text-[10px] font-bold text-gray-400 uppercase">Selanjutnya</span>
+</div>
+<p class="text-[#111318] text-base font-bold leading-tight">Bahasa Inggris Teknik</p>
+<div class="flex items-center gap-1 text-gray-500 mt-1">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<p class="text-xs font-normal">10:00 - 11:30</p>
+</div>
+<div class="flex items-center gap-1 text-gray-500">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<p class="text-xs font-normal">Gedung B • Lt. 2</p>
+</div>
+</div>
+<div class="w-24 shrink-0 bg-center bg-no-repeat aspect-square bg-cover rounded-lg" data-alt="Abstract English learning concept pattern" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB6kYVtwUKK_Sulafb543Kf8sjL0-7ak36bRmdCZj-quf-NDILYdiShnfQMlDM8hWRSczqIEOeg3IOPayD3yxiayb9hZ543jSUkB564Y3oD94I4p7r2cg6HEZGTU-DtH7FmwY6DvG5polUgRrKUPSCR2cNrvSa5xmrbMuApdraxMnbq6IChgtZTP9tsqL-zjWioIfWilgVC3xBZtUTwxCEOC-aFIc3xHnE-cvpJB9ujAq-Gh6MDIQu4TGpwSOefCfQUmFI4sXAd-sg");'></div>
+</div>
+</div>
+</div>
+<!-- Bottom Navigation Bar -->
+<div class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/90 backdrop-blur-lg border-t border-gray-100 px-8 py-3 flex justify-between items-center z-20">
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1">home</span>
+<span class="text-[10px] font-bold">Beranda</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-gray-400">
+<span class="material-symbols-outlined text-2xl">calendar_today</span>
+<span class="text-[10px] font-medium">Jadwal</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-gray-400">
+<span class="material-symbols-outlined text-2xl">history</span>
+<span class="text-[10px] font-medium">Riwayat</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-gray-400">
+<span class="material-symbols-outlined text-2xl">person</span>
+<span class="text-[10px] font-medium">Profil</span>
+</button>
+</div>
+</div>
+</body></html>

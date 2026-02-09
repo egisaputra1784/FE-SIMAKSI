@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Manual Attendance Entry</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1745cf",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111521",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Lexend', sans-serif;
+        }
+        .ios-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-[#111318]">
+<div class="relative flex h-screen w-full flex-col overflow-hidden max-w-[480px] mx-auto bg-background-light dark:bg-background-dark">
+<!-- Top App Bar -->
+<div class="flex flex-col bg-white dark:bg-[#1a1f2e] pt-4 pb-2 px-4 shadow-sm z-10">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3">
+<div class="text-[#111318] dark:text-white flex size-10 items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer">
+<span class="material-symbols-outlined">arrow_back_ios_new</span>
+</div>
+<div>
+<h2 class="text-[#111318] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Manual Attendance</h2>
+<p class="text-xs text-primary font-medium">Class 10A - Mathematics</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex size-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+<span class="material-symbols-outlined">select_check_box</span>
+</button>
+</div>
+</div>
+<!-- Search Bar -->
+<div class="pb-2">
+<label class="flex flex-col min-w-40 h-12 w-full">
+<div class="flex w-full flex-1 items-stretch rounded-xl h-full bg-[#f0f1f4] dark:bg-[#252b3d]">
+<div class="text-[#636c88] flex items-center justify-center pl-4">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none border-none bg-transparent focus:ring-0 h-full placeholder:text-[#636c88] px-4 pl-2 text-base font-normal leading-normal dark:text-white" placeholder="Search student name..." value=""/>
+</div>
+</label>
+</div>
+<!-- Filters/Tabs -->
+<div class="flex gap-3 py-3 overflow-x-auto no-scrollbar">
+<div class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-primary px-4 text-white">
+<p class="text-sm font-medium">All (32)</p>
+</div>
+<div class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-[#f0f1f4] dark:bg-[#252b3d] px-4 text-[#111318] dark:text-white">
+<p class="text-sm font-medium">Present (28)</p>
+</div>
+<div class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-[#f0f1f4] dark:bg-[#252b3d] px-4 text-[#111318] dark:text-white">
+<p class="text-sm font-medium">Absent (4)</p>
+</div>
+</div>
+</div>
+<!-- Student List Container -->
+<div class="flex-1 overflow-y-auto px-4 py-4 space-y-3">
+<!-- Student Row 1 -->
+<div class="flex items-center justify-between bg-white dark:bg-[#1a1f2e] p-4 rounded-xl ios-shadow border border-gray-100 dark:border-gray-800">
+<div class="flex items-center gap-4">
+<div class="relative">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-12 w-12 border-2 border-white dark:border-gray-700 shadow-sm" data-alt="Portrait of student Ahmad Fauzi" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCX6FAQXStCbJmTZVNiXZIe2APExsrJymaRbk3Fds0c_mBe_iemiRaf9cXoZkd5AXfJH1V3TUDb14RE3xd9ehcnWLYcM5nTbv9Pvcni6N4X1kyCkCYxIcHNuPZh4i_F6yl78bUirSDN3SqoHbli3u6e2nqHKVJdRriOQB5sPEKufS5lw1nvaa_fQGpsNqRwXAXOHBA1KBathaU0MXNG2pfiILWE5FJ4krly_PQyvMdFaDzpMOq3m4Ywr7oBIgCC55hNZ7UpDMr183Q");'></div>
+<div class="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-green-500 border-2 border-white dark:border-gray-700"></div>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-[#111318] dark:text-white text-base font-bold leading-tight">Ahmad Fauzi</p>
+<p class="text-[#636c88] text-xs font-normal leading-normal">ID: 2024001 • Grade 10</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<label class="relative flex h-[34px] w-[60px] cursor-pointer items-center rounded-full border-none bg-[#f0f1f4] dark:bg-[#252b3d] p-1 transition-all has-[:checked]:justify-end has-[:checked]:bg-primary">
+<div class="h-full aspect-square rounded-full bg-white shadow-md"></div>
+<input checked="" class="invisible absolute peer" type="checkbox"/>
+</label>
+<span class="text-[10px] font-bold uppercase tracking-wider text-primary">Hadir</span>
+</div>
+</div>
+<!-- Student Row 2 -->
+<div class="flex items-center justify-between bg-white dark:bg-[#1a1f2e] p-4 rounded-xl ios-shadow border border-gray-100 dark:border-gray-800">
+<div class="flex items-center gap-4">
+<div class="relative">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-12 w-12 border-2 border-white dark:border-gray-700 shadow-sm" data-alt="Portrait of student Budi Santoso" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAoF-Q2ZNgW7mpsOFhFNYFypVYIuK64YukUakZOQ9tIz99g1cWVfN25y29d0a0bw7kFqG6sj0iKMUtDcYEzr-8M75mc5kdzePA0bMuevYKR7HQsGcuKNOM1GDOzMpISZYaMmMXO-53H-03MAyB77mKmkHcjoVKlXZBKDtwsCKgrIHS8viI8uxYodAs5-70aUv9_XIo_ZMCDM_9z1qNHBnU6k6o1iwDg-ynZEkITSNbx6izzE-I5EUC5QOZfocJiIaplHDWzjGdi6Uw");'></div>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-[#111318] dark:text-white text-base font-bold leading-tight">Budi Santoso</p>
+<p class="text-[#636c88] text-xs font-normal leading-normal">ID: 2024002 • Grade 10</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<label class="relative flex h-[34px] w-[60px] cursor-pointer items-center rounded-full border-none bg-[#f0f1f4] dark:bg-[#252b3d] p-1 transition-all has-[:checked]:justify-end has-[:checked]:bg-primary">
+<div class="h-full aspect-square rounded-full bg-white shadow-md"></div>
+<input class="invisible absolute peer" type="checkbox"/>
+</label>
+<span class="text-[10px] font-bold uppercase tracking-wider text-gray-400">Absen</span>
+</div>
+</div>
+<!-- Student Row 3 -->
+<div class="flex items-center justify-between bg-white dark:bg-[#1a1f2e] p-4 rounded-xl ios-shadow border border-gray-100 dark:border-gray-800">
+<div class="flex items-center gap-4">
+<div class="relative">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-12 w-12 border-2 border-white dark:border-gray-700 shadow-sm" data-alt="Portrait of student Citra Putri" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB0TxGmkJo1bVlbJqxN177TRTH7fIZ64QKNgA1WSfmk6NKfLdRCyizNQA5nrmHILulhFJgU7HDD59R_Ecxs1_jitqkE6pz4KYqBBloMJmMX-aNS7CAStnnBW5_J-s862QRUsKo2c5LYeLWlEN74EPO7H0B5GdPrKqmuumDaeuRrEdvHvuWZqsgjsBV_x9HZNzj45El7If35YryQPVP0w9f53Q_3XgKWECGhc5dLnyyV2xfzAbBS11zxXee1j2xEFv3z431xp6LDjA4");'></div>
+<div class="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-green-500 border-2 border-white dark:border-gray-700"></div>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-[#111318] dark:text-white text-base font-bold leading-tight">Citra Putri</p>
+<p class="text-[#636c88] text-xs font-normal leading-normal">ID: 2024003 • Grade 10</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<label class="relative flex h-[34px] w-[60px] cursor-pointer items-center rounded-full border-none bg-[#f0f1f4] dark:bg-[#252b3d] p-1 transition-all has-[:checked]:justify-end has-[:checked]:bg-primary">
+<div class="h-full aspect-square rounded-full bg-white shadow-md"></div>
+<input checked="" class="invisible absolute peer" type="checkbox"/>
+</label>
+<span class="text-[10px] font-bold uppercase tracking-wider text-primary">Hadir</span>
+</div>
+</div>
+<!-- Student Row 4 -->
+<div class="flex items-center justify-between bg-white dark:bg-[#1a1f2e] p-4 rounded-xl ios-shadow border border-gray-100 dark:border-gray-800">
+<div class="flex items-center gap-4">
+<div class="relative">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-12 w-12 border-2 border-white dark:border-gray-700 shadow-sm" data-alt="Portrait of student Dwi Nugraha" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA5Mi5CsQoNw9dWJ6gUcaBliFHpONyAWbw28UOj_UqYufryrhqYy4pZSTqdEV4Re-5WXER1Vyy1fxvhveZNAhvvBcSjFbZoFtdJn3rr_M8xTcpuCa5mCih4O4c4Xa1dr_9AASUr7vUwPAvxOOZxqInZw56kpCt7mzVqow-Le0lsvCUBp6iT1iT8Cg49pMSy8g3BHLlzMmzLjeGkCT8RyatuSQMoJU0mbH32Aj6IQhHqVeGqrh0HdxD5R1qw3bqI68x0YsthC_ozs8c");'></div>
+<div class="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-green-500 border-2 border-white dark:border-gray-700"></div>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-[#111318] dark:text-white text-base font-bold leading-tight">Dwi Nugraha</p>
+<p class="text-[#636c88] text-xs font-normal leading-normal">ID: 2024004 • Grade 10</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<label class="relative flex h-[34px] w-[60px] cursor-pointer items-center rounded-full border-none bg-[#f0f1f4] dark:bg-[#252b3d] p-1 transition-all has-[:checked]:justify-end has-[:checked]:bg-primary">
+<div class="h-full aspect-square rounded-full bg-white shadow-md"></div>
+<input checked="" class="invisible absolute peer" type="checkbox"/>
+</label>
+<span class="text-[10px] font-bold uppercase tracking-wider text-primary">Hadir</span>
+</div>
+</div>
+<!-- Student Row 5 -->
+<div class="flex items-center justify-between bg-white dark:bg-[#1a1f2e] p-4 rounded-xl ios-shadow border border-gray-100 dark:border-gray-800">
+<div class="flex items-center gap-4">
+<div class="relative">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-12 w-12 border-2 border-white dark:border-gray-700 shadow-sm" data-alt="Portrait of student Eka Kusuma" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDq3At_m52xKNfIOX70kcaMo-EYco4SgvozvuGUKYkXUtQEW99i2jmns30sII-SMaj-PIFzGGC5R_beNaUdwEMBAKsPT9lB4rzWLc_doOFikqiuKKQmOlBnvW2yvxU58-GWxq_if6rY775lo0hH9ZT-tgIce7WoB1YmU_fudPfE6w_Fe9M_bC9Q1hn7r3bk_gVdXy9erHFUPNggpJsOOBhlIbf4gWRsi-RpRIHi8oJ2Zvs_XS4xZrvDrL57JRksr2c5HRSk7i46AV4");'></div>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-[#111318] dark:text-white text-base font-bold leading-tight">Eka Kusuma</p>
+<p class="text-[#636c88] text-xs font-normal leading-normal">ID: 2024005 • Grade 10</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<label class="relative flex h-[34px] w-[60px] cursor-pointer items-center rounded-full border-none bg-[#f0f1f4] dark:bg-[#252b3d] p-1 transition-all has-[:checked]:justify-end has-[:checked]:bg-primary">
+<div class="h-full aspect-square rounded-full bg-white shadow-md"></div>
+<input class="invisible absolute peer" type="checkbox"/>
+</label>
+<span class="text-[10px] font-bold uppercase tracking-wider text-gray-400">Absen</span>
+</div>
+</div>
+<!-- Student Row 6 -->
+<div class="flex items-center justify-between bg-white dark:bg-[#1a1f2e] p-4 rounded-xl ios-shadow border border-gray-100 dark:border-gray-800">
+<div class="flex items-center gap-4">
+<div class="relative">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-12 w-12 border-2 border-white dark:border-gray-700 shadow-sm" data-alt="Portrait of student Fajar Wijaya" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCkdFo9j8wozKmibxlkK_R64g1dNVlP-lHQsidg9RjtJMmuL3GPA3-Ol3R2qTRww9wcDDq67atFUxA-nP19eSQE_c55J8NyAIa9Ao2zwPJ0jZSiaUwo7RBrc2QCZ3s1H4YrSPVsaJ35icUSU_N-WxOY_jSKfHeoaxLemBDx7n6Xl7DxCRJted3fCE7Km_AXsCl9Oz1OyWtyJIgvVQEwEjbdkOnmvuyopaHpnBw-TDTWvmi5P9soU0FdBqEcbuO5vKX4mwUN5P1lKNM");'></div>
+<div class="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-green-500 border-2 border-white dark:border-gray-700"></div>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-[#111318] dark:text-white text-base font-bold leading-tight">Fajar Wijaya</p>
+<p class="text-[#636c88] text-xs font-normal leading-normal">ID: 2024006 • Grade 10</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<label class="relative flex h-[34px] w-[60px] cursor-pointer items-center rounded-full border-none bg-[#f0f1f4] dark:bg-[#252b3d] p-1 transition-all has-[:checked]:justify-end has-[:checked]:bg-primary">
+<div class="h-full aspect-square rounded-full bg-white shadow-md"></div>
+<input checked="" class="invisible absolute peer" type="checkbox"/>
+</label>
+<span class="text-[10px] font-bold uppercase tracking-wider text-primary">Hadir</span>
+</div>
+</div>
+<div class="h-24"></div> <!-- Spacer for sticky footer -->
+</div>
+<!-- Sticky Footer Action -->
+<div class="absolute bottom-0 left-0 right-0 p-4 bg-white/80 dark:bg-[#1a1f2e]/80 backdrop-blur-md border-t border-gray-100 dark:border-gray-800">
+<button class="w-full flex h-14 items-center justify-center gap-3 rounded-xl bg-primary text-white shadow-lg active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined">save</span>
+<span class="text-base font-bold leading-normal tracking-[0.015em]">Simpan Kehadiran</span>
+</button>
+</div>
+</div>
+</body></html>

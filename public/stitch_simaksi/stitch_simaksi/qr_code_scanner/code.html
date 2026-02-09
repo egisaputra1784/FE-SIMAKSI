@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SIMAKSI - QR Code Scanner</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1745cf",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111521",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Lexend', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .scanner-frame {
+            position: relative;
+            width: 260px;
+            height: 260px;
+        }
+        .scanner-corner {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            border-color: #1745cf;
+        }
+        .scanner-line {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #1745cf, transparent);
+            position: absolute;
+            width: 100%;
+            top: 0;
+            animation: scan 3s linear infinite;
+        }
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+        .ios-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark overflow-hidden">
+<!-- Camera Viewport Simulation -->
+<div class="fixed inset-0 z-0">
+<div class="absolute inset-0 bg-neutral-900">
+<img alt="Blurred view of a classroom or office setting" class="w-full h-full object-cover opacity-80" data-alt="Modern classroom interior view from camera lens" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9G1pRlDWeTKTfKvM-BGxTuqCKklCUjDL-e98UzKfSfaszJy9htjcWP08uk1rS6NhC7D8aulIZx6TbacIXateznb740wgSmWU0ImWoo2eKyf9lIemKBexBzouMq8ME64lMmDBr92Ldmh2gL4w8PqTmS6cIc0Abl_zCs7dTSkvWxuiZJeRraiZa7hw8O8j0qG0YhCpiZzr9JP-j-ZWyod2nbEkO84TWYxzEdDPVjYHtLsTdbpr8Z2_3tZzGbLabE6-jksoX30t7Zhw"/>
+</div>
+<!-- Dark Overlay for focus -->
+<div class="absolute inset-0 bg-black/30"></div>
+</div>
+<!-- UI Overlay Layer -->
+<div class="relative z-10 flex flex-col h-screen text-white">
+<!-- Top App Bar -->
+<div class="flex items-center justify-between p-6 pt-12 ios-blur bg-white/10">
+<button class="size-10 flex items-center justify-center rounded-full bg-black/40 text-white transition-active active:scale-95">
+<span class="material-symbols-outlined">arrow_back_ios_new</span>
+</button>
+<h1 class="text-lg font-semibold tracking-tight">Absensi QR</h1>
+<button class="size-10 flex items-center justify-center rounded-full bg-black/40 text-white transition-active active:scale-95">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+<!-- Center Content: Scanning Box -->
+<div class="flex-1 flex flex-col items-center justify-center px-6">
+<div class="mb-8 text-center space-y-2">
+<h2 class="text-xl font-bold tracking-tight">Arahkan kamera ke QR Code</h2>
+<p class="text-sm font-light text-white/80">Posisikan kode di dalam kotak untuk memindai</p>
+</div>
+<!-- Scanner Frame -->
+<div class="scanner-frame mb-12">
+<!-- Corners -->
+<div class="scanner-corner top-0 left-0 border-t-4 border-l-4 rounded-tl-xl"></div>
+<div class="scanner-corner top-0 right-0 border-t-4 border-r-4 rounded-tr-xl"></div>
+<div class="scanner-corner bottom-0 left-0 border-b-4 border-l-4 rounded-bl-xl"></div>
+<div class="scanner-corner bottom-0 right-0 border-b-4 border-r-4 rounded-br-xl"></div>
+<!-- Animated Line -->
+<div class="scanner-line"></div>
+<!-- Inner soft border -->
+<div class="w-full h-full border border-white/20 rounded-xl"></div>
+</div>
+<!-- Controls -->
+<div class="flex items-center gap-10">
+<button class="flex flex-col items-center gap-2 group">
+<div class="size-14 rounded-full bg-black/40 border border-white/20 flex items-center justify-center group-active:bg-primary transition-colors">
+<span class="material-symbols-outlined text-3xl">flashlight_on</span>
+</div>
+<span class="text-xs font-medium uppercase tracking-widest text-white/70">Senter</span>
+</button>
+<button class="flex flex-col items-center gap-2 group">
+<div class="size-14 rounded-full bg-black/40 border border-white/20 flex items-center justify-center group-active:bg-primary transition-colors">
+<span class="material-symbols-outlined text-3xl">image</span>
+</div>
+<span class="text-xs font-medium uppercase tracking-widest text-white/70">Galeri</span>
+</button>
+</div>
+</div>
+<!-- Bottom Feedback Toast (Success State Example - Hidden by default or shown fixed) -->
+<div class="p-6 mb-8">
+<div class="bg-white/95 dark:bg-background-dark/95 ios-blur p-4 rounded-xl border border-white/20 shadow-2xl flex items-center gap-4 text-[#111318] dark:text-white">
+<div class="size-10 bg-green-500 rounded-full flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-white font-bold">check</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold">Absensi Berhasil!</p>
+<p class="text-xs opacity-60">Sesi Kuliah: Pemrograman Mobile</p>
+</div>
+<button class="px-4 py-2 bg-primary text-white text-xs font-bold rounded-lg uppercase tracking-wider">
+                    Selesai
+                </button>
+</div>
+</div>
+<!-- Safe Area Spacer for iOS -->
+<div class="h-6"></div>
+</div>
+<!-- Background Decoration for Depth -->
+<div class="fixed inset-0 pointer-events-none">
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px]"></div>
+</div>
+</body></html>

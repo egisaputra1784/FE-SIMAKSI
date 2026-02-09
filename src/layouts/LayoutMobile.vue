@@ -1,11 +1,11 @@
 <template>
-  <div class="bg-background-light dark:bg-background-dark min-h-screen flex justify-center">
-    <div class="relative w-full max-w-[430px] min-h-screen bg-white dark:bg-background-dark shadow-2xl overflow-x-hidden">
+  <div class="min-h-screen w-full bg-background-light flex justify-center">
+    <div class="w-full max-w-[430px] min-h-screen relative">
       <slot />
-      <BottomNav />
     </div>
   </div>
 </template>
+
 
 <script setup>
 import BottomNav from '@/components/BottomNav.vue'

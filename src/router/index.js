@@ -3,7 +3,7 @@ import Login from '../views/login.vue'
 import DashboardGuru from '../views/guru/DashboardGuru.vue'
 
 const routes = [
-    { path: '/', redirect: '/guru' },
+    { path: '/', redirect: '/siswa' },
 
     { path: '/login', component: Login },
 
@@ -20,7 +20,12 @@ const routes = [
     {
         path: '/guru/rekap',
         component: () => import('../views/guru/RekapGuru.vue')
+    },
+    {
+        path: '/siswa',
+        component: () => import('../views/siswa/DashboardSiswa.vue')
     }
+
 
 ]
 

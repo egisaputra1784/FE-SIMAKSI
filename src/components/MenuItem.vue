@@ -1,4 +1,5 @@
 <template>
+  <ion-page>
   <button
     class="w-full flex items-center gap-4
            bg-white p-4 rounded-xl
@@ -23,6 +24,7 @@
       chevron_right
     </span>
   </button>
+</ion-page>
 </template>
 
 <script setup>

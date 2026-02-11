@@ -1,4 +1,5 @@
 <template>
+  <ion-page>
   <LayoutMobile>
     <div class="flex flex-col min-h-screen bg-background-light font-display">
 
@@ -127,6 +128,7 @@
 
     </div>
   </LayoutMobile>
+  </ion-page>
 </template>
 
 

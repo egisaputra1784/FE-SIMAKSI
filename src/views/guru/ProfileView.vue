@@ -1,4 +1,5 @@
 <template>
+    <ion-page>
     <LayoutGuru>
         <div class="flex flex-col min-h-screen bg-background-light font-display">
 
@@ -88,6 +89,7 @@
 
         </div>
     </LayoutGuru>
+    </ion-page>
 </template>
 
 

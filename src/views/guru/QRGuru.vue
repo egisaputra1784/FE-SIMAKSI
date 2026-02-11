@@ -1,4 +1,5 @@
 <template>
+  <ion-page>
   <LayoutMobile>
     <div class="flex flex-col min-h-screen bg-background-light">
 
@@ -85,6 +86,7 @@
 
     </div>
   </LayoutMobile>
+  </ion-page>
 </template>
 
 <script setup>

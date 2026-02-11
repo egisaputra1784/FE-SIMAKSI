@@ -1,8 +1,10 @@
 <template>
+  <ion-page>
   <LayoutMobile>
     <slot />
     <BottomNavSiswa />
   </LayoutMobile>
+  </ion-page>
 </template>
 
 <script setup>

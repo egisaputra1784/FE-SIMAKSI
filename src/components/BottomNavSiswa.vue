@@ -1,4 +1,5 @@
 <template>
+  <ion-page>
   <nav
     class="fixed bottom-0 left-1/2 -translate-x-1/2 z-50 w-full max-w-[430px]
            flex justify-around border-t border-primary/10
@@ -9,7 +10,9 @@
     <NavItem to="/guru/laporan" icon="analytics" label="Laporan" />
     <NavItem to="/guru/profil" icon="person" label="Profil" />
   </nav>
+  </ion-page>
 </template>
+
 
 <script setup>
 import NavItem from './NavItem.vue'

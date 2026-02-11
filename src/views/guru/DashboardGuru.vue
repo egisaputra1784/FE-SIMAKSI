@@ -1,4 +1,5 @@
 <template>
+  <ion-page>
   <LayoutGuru>
     <!-- HEADER -->
     <header class="sticky top-0 z-50 flex items-center justify-between
@@ -117,6 +118,7 @@
     </main>
 
   </LayoutGuru>
+  </ion-page>
 </template>
 
 <script setup>

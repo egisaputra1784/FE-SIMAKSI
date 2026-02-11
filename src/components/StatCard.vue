@@ -1,8 +1,10 @@
 <template>
+  <ion-page>
   <div class="rounded-xl p-4 text-center border" :class="styleClass">
     <p class="text-xs mb-1">{{ title }}</p>
     <p class="text-2xl font-bold">{{ value }}</p>
   </div>
+  </ion-page>
 </template>
 
 <script setup>

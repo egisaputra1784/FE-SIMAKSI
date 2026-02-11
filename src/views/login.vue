@@ -1,4 +1,5 @@
 <template>
+  <ion-page>
   <div class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col items-center">
 
     <!-- iOS Spacer -->
@@ -93,6 +94,7 @@
     <!-- fake home indicator -->
     <div class="w-32 h-1.5 bg-slate-300 rounded-full mb-2 mt-auto"></div>
   </div>
+  </ion-page>
 </template>
 
 <script setup>

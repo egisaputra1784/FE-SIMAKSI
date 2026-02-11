@@ -43,16 +43,16 @@
                 <!-- name -->
                 <div class="mt-5 text-center">
                     <p class="text-xl font-bold text-primary">
-                        Drs. Budi Santoso, M.Pd
+                        {{ guruName }}
                     </p>
 
                     <p class="text-sm text-slate-500 mt-1">
-                        NIP: 19750312 200003 1 002
+                        {{ guruNip }}
                     </p>
 
                     <span class="inline-block mt-3 px-3 py-1 rounded-full
                    bg-primary/10 text-primary text-xs font-semibold">
-                        Guru Madya
+                        {{ guruEmail }}
                     </span>
                 </div>
             </section>
@@ -71,14 +71,15 @@
                 <MenuItem icon="help_center" title="Pusat Bantuan" subtitle="Butuh bantuan? Hubungi kami" />
 
                 <!-- logout -->
-                <button class="mt-6 w-full h-14 rounded-xl
-                 bg-red-500 text-white font-bold
-                 shadow-lg active:scale-95
-                 flex items-center justify-center gap-2">
+                <button @click="logout" class="mt-6 w-full h-14 rounded-xl
+                    bg-red-500 text-white font-bold
+                    shadow-lg active:scale-95
+                    flex items-center justify-center gap-2">
 
                     <span class="material-symbols-outlined">logout</span>
                     Keluar
                 </button>
+
 
                 <p class="text-center text-xs text-slate-400 mt-6">
                     SIMAKSI Mobile v2.4.0
@@ -94,6 +95,33 @@
 import { useRouter } from 'vue-router'
 import MenuItem from '@/components/MenuItem.vue'
 import LayoutGuru from '../../layouts/LayoutGuru.vue';
+import api from '@/services/api'
+import { ref, onMounted } from 'vue'
+
+const guruName = ref('')
+const guruRole = ref('')
+const guruNip = ref('')
+const guruEmail = ref('')
+
+onMounted(() => {
+  const user = JSON.parse(localStorage.getItem('user') || '{}')
+  if (user) {
+    guruName.value = user.name
+    guruRole.value = user.role
+    guruNip.value = user.nip || user.nisn || ''
+    guruEmail.value = user.email
+  }
+})
 
 const router = useRouter()
+
+const logout = async () => {
+    await api.post('/logout')
+
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+
+    router.push('/login')
+}
+
 </script>

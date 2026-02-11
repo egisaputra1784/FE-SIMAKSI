@@ -3,13 +3,10 @@
     <div class="flex flex-col min-h-screen bg-background-light">
 
       <!-- HEADER -->
-      <header
-        class="flex items-center justify-between sticky top-0 z-10
+      <header class="flex items-center justify-between sticky top-0 z-10
                bg-white px-4 py-3 border-b border-primary/10">
 
-        <button
-          @click="goBack"
-          class="size-11 flex items-center justify-center text-primary">
+        <button @click="goBack" class="size-11 flex items-center justify-center text-primary">
           <span class="material-symbols-outlined">arrow_back</span>
         </button>
 
@@ -34,15 +31,14 @@
       <!-- QR CONTAINER -->
       <section class="flex-1 flex flex-col items-center justify-center px-6">
 
-        <div
-          class="relative w-full max-w-[320px] aspect-square
-                 bg-white rounded-2xl shadow-lg
-                 flex items-center justify-center p-8 border-4 border-primary/5">
+        <div class="relative w-full max-w-[320px] aspect-square
+               bg-white rounded-2xl shadow-lg
+               flex items-center justify-center p-8 border-4 border-primary/5">
 
-          <!-- QR PLACEHOLDER -->
-          <div
-            class="w-full h-full bg-slate-200 rounded-lg
-                   flex items-center justify-center text-primary/40">
+          <!-- QR IMAGE -->
+          <img v-if="sesi.qr_image" :src="sesi.qr_image" alt="QR Code" class="w-full h-full object-contain" />
+
+          <div v-else class="w-full h-full bg-slate-200 rounded-lg flex items-center justify-center text-primary/40">
             QR HERE
           </div>
 
@@ -53,6 +49,9 @@
           <div class="absolute bottom-4 right-4 w-8 h-8 border-b-4 border-r-4 border-primary rounded-br-lg"></div>
         </div>
 
+        <p class="text-sm text-primary/60 mt-6 text-center px-4">
+          {{ sesi.qr_token }}
+        </p>
         <p class="text-sm text-primary/60 mt-6 text-center px-4">
           Arahkan kamera siswa ke QR untuk presensi otomatis.
         </p>
@@ -72,8 +71,7 @@
 
       <!-- ACTION BUTTONS -->
       <section class="p-6 space-y-3">
-        <button
-          class="w-full bg-primary text-white py-4 rounded-xl font-bold shadow-lg active:scale-95">
+        <button class="w-full bg-primary text-white py-4 rounded-xl font-bold shadow-lg active:scale-95">
           Finish Session
         </button>
 
@@ -88,9 +86,19 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import LayoutMobile from '@/layouts/LayoutMobile.vue'
 
 const router = useRouter()
+const sesi = ref({})
+
 const goBack = () => router.back()
+
+onMounted(() => {
+  const data = localStorage.getItem('sesi')
+  if (data) {
+    sesi.value = JSON.parse(data)
+  }
+})
 </script>

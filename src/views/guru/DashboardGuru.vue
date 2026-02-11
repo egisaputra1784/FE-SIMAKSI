@@ -121,6 +121,20 @@
 
 <script setup>
 import LayoutGuru from '@/layouts/LayoutGuru.vue'
+import { ref, onMounted } from 'vue'
 
-const guruName = 'Ibu Sarah, M.Pd.'
+const guruName = ref('')
+const guruRole = ref('')
+const guruNip = ref('')
+
+onMounted(() => {
+  const user = JSON.parse(localStorage.getItem('user') || '{}')
+  if (user) {
+    guruName.value = user.name
+    guruRole.value = user.role
+    guruNip.value = user.nip || user.nisn || ''
+  }
+})
+
 </script>
+

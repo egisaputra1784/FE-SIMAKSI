@@ -28,7 +28,7 @@
           Please login to access your dashboard
         </p>
 
-        <form class="space-y-5">
+        <form @submit.prevent="handleLogin" class="space-y-5">
 
           <!-- ID -->
           <div class="space-y-2">
@@ -39,12 +39,8 @@
                 person
               </span>
 
-              <input
-                v-model="login"
-                type="text"
-                placeholder="Enter your ID"
-                class="w-full pl-12 pr-4 py-4 bg-slate-50 dark:bg-slate-800 border rounded-xl outline-none"
-              />
+              <input v-model="login" type="text" placeholder="Enter your ID"
+                class="w-full pl-12 pr-4 py-4 bg-slate-50 dark:bg-slate-800 border rounded-xl outline-none" />
             </div>
           </div>
 
@@ -57,18 +53,11 @@
                 lock
               </span>
 
-              <input
-                :type="showPass ? 'text' : 'password'"
-                v-model="password"
-                placeholder="••••••••"
-                class="w-full pl-12 pr-12 py-4 bg-slate-50 dark:bg-slate-800 border rounded-xl outline-none"
-              />
+              <input :type="showPass ? 'text' : 'password'" v-model="password" placeholder="••••••••"
+                class="w-full pl-12 pr-12 py-4 bg-slate-50 dark:bg-slate-800 border rounded-xl outline-none" />
 
-              <button
-                type="button"
-                class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400"
-                @click="showPass = !showPass"
-              >
+              <button type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400"
+                @click="showPass = !showPass">
                 <span class="material-symbols-outlined">
                   {{ showPass ? 'visibility_off' : 'visibility' }}
                 </span>
@@ -77,12 +66,12 @@
           </div>
 
           <!-- Dummy button -->
-          <button
-            type="button"
-            class="w-full bg-primary text-white font-bold py-4 rounded-xl shadow-lg shadow-primary/20"
-          >
+          <button type="submit"
+            class="w-full bg-primary text-white font-bold py-4 rounded-xl shadow-lg shadow-primary/20">
             Log In
           </button>
+
+
         </form>
       </div>
 
@@ -108,9 +97,37 @@
 
 <script setup>
 import { ref } from 'vue'
+import api from '@/services/api'
+import { useRouter } from 'vue-router'
 
-/* dummy state doang */
+const router = useRouter()
+
 const login = ref('12345678')
 const password = ref('password')
 const showPass = ref(false)
+
+const handleLogin = async () => {
+  try {
+    const res = await api.post('/login', {
+      login: login.value,
+      password: password.value
+    })
+
+    const token = res.data.token
+    const user = res.data.user
+
+    localStorage.setItem('token', token)
+    localStorage.setItem('user', JSON.stringify(user))
+
+    if (user.role === 'guru') {
+      router.push('/guru')
+    } else if (user.role === 'siswa') {
+      router.push('/siswa')
+    }
+
+  } catch (err) {
+    alert(err.response?.data?.message || 'Login gagal bro')
+  }
+}
+
 </script>

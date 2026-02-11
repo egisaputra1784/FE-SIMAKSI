@@ -1,18 +1,14 @@
 <template>
-  <LayoutMobile>
+  <LayoutGuru>
     <!-- HEADER -->
-    <header
-      class="sticky top-0 z-50 flex items-center justify-between
+    <header class="sticky top-0 z-50 flex items-center justify-between
              bg-white/95 backdrop-blur-md
              px-5 py-4 border-b border-primary/10">
 
       <div class="flex items-center gap-3">
         <!-- avatar -->
         <div class="size-12 rounded-full overflow-hidden border-2 border-primary/20">
-          <img
-            src="https://i.pravatar.cc/100?img=47"
-            class="w-full h-full object-cover"
-          />
+          <img src="https://i.pravatar.cc/100?img=47" class="w-full h-full object-cover" />
         </div>
 
         <div>
@@ -24,8 +20,7 @@
       </div>
 
       <!-- notif -->
-      <button
-        class="relative size-12 rounded-xl bg-primary/5 text-primary flex items-center justify-center">
+      <button class="relative size-12 rounded-xl bg-primary/5 text-primary flex items-center justify-center">
         <span class="material-symbols-outlined text-2xl">notifications</span>
         <span class="absolute top-3 right-3 size-2.5 rounded-full bg-red-500"></span>
       </button>
@@ -61,9 +56,7 @@
         <h3 class="text-xl font-bold">Aksi Cepat</h3>
 
         <!-- QR BIG BUTTON -->
-        <button
-          @click="$router.push('/guru/qr')"
-          class="group w-full flex items-center justify-between
+        <button @click="$router.push('/guru/qr')" class="group w-full flex items-center justify-between
                  bg-primary text-white p-5 rounded-2xl
                  shadow-lg shadow-primary/20 active:scale-95">
 
@@ -84,8 +77,7 @@
         <!-- 2 small buttons -->
         <div class="grid grid-cols-2 gap-4">
 
-          <button
-            @click="$router.push('/guru/manual')"
+          <button @click="$router.push('/guru/manual')"
             class="bg-white border-2 border-primary/10 rounded-2xl p-5 active:scale-95">
 
             <span class="material-symbols-outlined text-primary text-3xl mb-3 block">
@@ -94,8 +86,7 @@
             <p class="font-bold">Absensi Manual</p>
           </button>
 
-          <button
-            @click="$router.push('/guru/rekap')"
+          <button @click="$router.push('/guru/rekap')"
             class="bg-white border-2 border-primary/10 rounded-2xl p-5 active:scale-95">
 
             <span class="material-symbols-outlined text-primary text-3xl mb-3 block">
@@ -124,10 +115,12 @@
       </section>
 
     </main>
-  </LayoutMobile>
+
+  </LayoutGuru>
 </template>
 
 <script setup>
-import LayoutMobile from '@/layouts/LayoutMobile.vue'
+import LayoutGuru from '@/layouts/LayoutGuru.vue'
+
 const guruName = 'Ibu Sarah, M.Pd.'
 </script>

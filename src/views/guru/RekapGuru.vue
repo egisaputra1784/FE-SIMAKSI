@@ -2,7 +2,14 @@
   <LayoutMobile>
     <div class="p-6 space-y-6">
 
-      <h1 class="text-xl font-bold">Rekap Absensi</h1>
+      <div class="flex items-center gap-3">
+        <button @click="goBack" class="size-9 bg-white rounded-full shadow flex items-center justify-center">
+
+          <span class="material-symbols-outlined">arrow_back</span>
+        </button>
+
+        <h1 class="text-xl font-bold">Rekap Absen</h1>
+      </div>
 
       <div class="grid grid-cols-3 gap-3">
 
@@ -37,5 +44,10 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router'
 import LayoutMobile from '@/layouts/LayoutMobile.vue'
+
+const router = useRouter()
+
+const goBack = () => router.back()
 </script>

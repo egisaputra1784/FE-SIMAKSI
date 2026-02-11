@@ -58,23 +58,25 @@
       </section>
 
       <!-- PROGRESS -->
+      <!-- PROGRESS -->
       <section class="px-6 space-y-3">
         <div class="flex justify-between text-sm font-semibold text-primary">
-          <span>Dynamic Security</span>
-          <span>Refresh 12s</span>
+          <span>Expired</span>
+          <span>
+            <p class="text-sm text-primary/60 mt-2">
+              Sisa Waktu: {{ formattedSisa }}
+            </p>
+          </span>
         </div>
 
         <div class="h-2 rounded-full bg-primary/20 overflow-hidden">
-          <div class="h-full bg-primary w-2/3"></div>
+          <div class="h-full bg-primary transition-all duration-1000" :style="{ width: progressWidth + '%' }"></div>
         </div>
       </section>
 
+
       <!-- ACTION BUTTONS -->
       <section class="p-6 space-y-3">
-        <button class="w-full bg-primary text-white py-4 rounded-xl font-bold shadow-lg active:scale-95">
-          Finish Session
-        </button>
-
         <button
           class="w-full bg-white border-2 border-primary/10 text-primary/70 py-4 rounded-xl font-semibold active:scale-95">
           Download PDF
@@ -86,19 +88,56 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import LayoutMobile from '@/layouts/LayoutMobile.vue'
 
 const router = useRouter()
-const sesi = ref({})
 
 const goBack = () => router.back()
+
+
+const sesi = ref({})
+const sisaWaktu = ref(0) // detik
+const totalWaktu = ref(0) // total detik sesi
 
 onMounted(() => {
   const data = localStorage.getItem('sesi')
   if (data) {
     sesi.value = JSON.parse(data)
+
+    const expired = new Date(sesi.value.expired_at)
+    const dibuka = new Date(sesi.value.dibuka_pada || new Date(expired.getTime() - 30*60*1000)) 
+    // kalau dibuka_pada ga ada, pakai 30 menit default
+
+    totalWaktu.value = (expired - dibuka) / 1000
+
+    updateSisaWaktu()
+    setInterval(updateSisaWaktu, 1000)
   }
 })
+
+
+function updateSisaWaktu() {
+  if (!sesi.value.expired_at) return
+
+  const now = new Date()
+  const expired = new Date(sesi.value.expired_at)
+  const diff = (expired - now) / 1000
+
+  sisaWaktu.value = diff > 0 ? diff : 0
+}
+
+const formattedSisa = computed(() => {
+  const minutes = Math.floor(sisaWaktu.value / 60)
+  const seconds = Math.floor(sisaWaktu.value % 60)
+  return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
+})
+
+// width progress bar
+const progressWidth = computed(() => {
+  if (!totalWaktu.value || sisaWaktu.value <= 0) return 0
+  return (sisaWaktu.value / totalWaktu.value) * 100
+})
+
 </script>

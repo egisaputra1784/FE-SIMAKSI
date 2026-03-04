@@ -1,5 +1,4 @@
 <template>
-  <ion-page>
   <router-link
     :to="to"
     class="flex flex-col items-center gap-1 text-slate-400"
@@ -8,7 +7,6 @@
     <span class="material-symbols-outlined">{{ icon }}</span>
     <span class="text-[10px] font-bold uppercase tracking-widest">{{ label }}</span>
   </router-link>
-  </ion-page>
 </template>
 
 <script setup>

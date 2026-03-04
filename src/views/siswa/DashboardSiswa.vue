@@ -143,6 +143,7 @@
 
 
 <script setup>
+import { IonPage } from '@ionic/vue'
 import LayoutMobile from '@/layouts/LayoutMobile.vue'
 
 const studentName = 'Budi'

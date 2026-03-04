@@ -135,6 +135,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { IonPage } from '@ionic/vue'
 import { useRouter } from 'vue-router'
 import LayoutMobile from '@/layouts/LayoutMobile.vue'
 

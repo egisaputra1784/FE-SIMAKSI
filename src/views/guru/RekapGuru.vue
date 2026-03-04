@@ -46,6 +46,7 @@
 </template>
 
 <script setup>
+import { IonPage } from '@ionic/vue'
 import { useRouter } from 'vue-router'
 import LayoutMobile from '@/layouts/LayoutMobile.vue'
 

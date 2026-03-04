@@ -1,10 +1,8 @@
 <template>
-  <ion-page>
   <LayoutMobile>
     <slot />
     <BottomNavGuru />
   </LayoutMobile>
-  </ion-page>
 </template>
 
 <script setup>

@@ -90,6 +90,7 @@
 </template>
 
 <script setup>
+import { IonPage } from '@ionic/vue'
 import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import LayoutMobile from '@/layouts/LayoutMobile.vue'

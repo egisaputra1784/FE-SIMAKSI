@@ -10,5 +10,5 @@
 
 
 <script setup>
-
+import { IonPage } from '@ionic/vue'
 </script>

@@ -122,6 +122,7 @@
 </template>
 
 <script setup>
+import { IonPage } from '@ionic/vue'
 import LayoutGuru from '@/layouts/LayoutGuru.vue'
 import { ref, onMounted } from 'vue'
 

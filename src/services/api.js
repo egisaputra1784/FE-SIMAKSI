@@ -17,18 +17,6 @@ api.interceptors.request.use(config => {
   return config
 })
 
-api.interceptors.response.use(
-  res => res, // kalau sukses, return response
-  err => {
-    if (err.response?.status === 401) {
-      // token invalid atau expired
-      localStorage.removeItem('token')
-      localStorage.removeItem('user')
-      router.push('/login')
-    }
-    return Promise.reject(err)
-  }
-)
 
 
 

@@ -28,6 +28,14 @@ const routes = [
     {
         path: '/murid',
         component: () => import('../views/siswa/DashboardSiswa.vue')
+    },
+    {
+        path: '/scan',
+        component: () => import('../views/siswa/ScanSiswa.vue')
+    },
+    {
+        path: '/murid/profil',
+        component: () => import('../views/siswa/ProfilSiswa.vue')
     }
 
 
@@ -39,30 +47,30 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  try {
-    const token = localStorage.getItem('token')
-    let user = null
+    try {
+        const token = localStorage.getItem('token')
+        let user = null
 
-    if (token) {
-      const storedUser = localStorage.getItem('user')
-      if (storedUser) {
-        user = JSON.parse(storedUser)
-      }
-    }
+        if (token) {
+            const storedUser = localStorage.getItem('user')
+            if (storedUser) {
+                user = JSON.parse(storedUser)
+            }
+        }
 
-    if (!token && to.path !== '/login') {
-      next('/login')
-    } else if (token && to.path === '/login') {
-      if (user?.role === 'guru') next('/guru')
-      else if (user?.role === 'murid') next('/murid')
-      else next('/login')
-    } else {
-      next()
+        if (!token && to.path !== '/login') {
+            next('/login')
+        } else if (token && to.path === '/login') {
+            if (user?.role === 'guru') next('/guru')
+            else if (user?.role === 'murid') next('/murid')
+            else next('/login')
+        } else {
+            next()
+        }
+    } catch (e) {
+        console.error('Router error:', e)
+        next('/login')
     }
-  } catch(e) {
-    console.error('Router error:', e)
-    next('/login')
-  }
 })
 
 

@@ -42,7 +42,7 @@
           </div>
 
           <!-- SCANNER FRAME -->
-          <div class="relative w-[260px] h-[270px] mb-12">
+          <div id="qr-reader" class="relative w-[260px] h-[270px] mb-12">
 
             <!-- Corners -->
             <div class="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-primary rounded-tl-xl"></div>
@@ -90,14 +90,75 @@
 </template>
 
 <script setup>
-import { IonPage, IonContent } from '@ionic/vue'
-import { useRouter } from 'vue-router'
+import { IonPage, IonContent, toastController } from '@ionic/vue'
+import { useRouter } from 'vue-router' 
+import { Html5Qrcode } from "html5-qrcode"
+import api from "@/services/api"
+import { onMounted, onBeforeUnmount, ref } from "vue"
 
 const router = useRouter()
 
 const goBack = () => {
   router.back()
 }
+const scanner = ref(null)
+const scanning = ref(false)
+
+const startScanner = async () => {
+  const qrRegionId = "qr-reader"
+
+  scanner.value = new Html5Qrcode(qrRegionId)
+
+  try {
+    await scanner.value.start(
+      { facingMode: "environment" }, // kamera belakang
+      {
+        fps: 10,
+        qrbox: 250
+      },
+      async (decodedText) => {
+        if (scanning.value) return
+        scanning.value = true
+
+        await handleScan(decodedText)
+      }
+    )
+  } catch (err) {
+    alert("Tidak bisa akses kamera")
+  }
+}
+
+const handleScan = async (token) => {
+  try {
+    const res = await api.post("/absensi/scan", {
+      token: token
+    })
+
+    alert(res.data.message)
+
+  } catch (err) {
+    alert(err.response?.data?.message || "Gagal scan")
+  } finally {
+    stopScanner()
+  }
+}
+
+const stopScanner = async () => {
+  if (scanner.value) {
+    await scanner.value.stop()
+    await scanner.value.clear()
+    scanner.value = null
+  }
+}
+
+onMounted(() => {
+  startScanner()
+})
+
+onBeforeUnmount(() => {
+  stopScanner()
+})
+
 </script>
 
 <style scoped>
@@ -108,5 +169,11 @@ const goBack = () => {
 
 .animate-scan {
   animation: scan 3s linear infinite;
+}
+#qr-reader video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+  border-radius: 12px;
 }
 </style>

@@ -4,6 +4,17 @@ export default {
     "./index.html",
     "./src/**/*.{vue,js,ts}"
   ],
+  safelist: [
+    {
+      pattern: /bg-/,
+    },
+    {
+      pattern: /text-/,
+    },
+    {
+      pattern: /border-/,
+    },
+  ],
   theme: {
     extend: {
       colors: {

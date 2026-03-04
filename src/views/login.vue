@@ -137,8 +137,8 @@ const handleLogin = async () => {
 
     if (user.role === 'guru') {
       router.push('/guru')
-    } else if (user.role === 'siswa') {
-      router.push('/siswa')
+    } else if (user.role === 'murid') {
+      router.push('/murid')
     }
 
   } catch (err) {

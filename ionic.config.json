@@ -1,5 +1,7 @@
 {
   "name": "npm run serve",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "vue"
 }

@@ -136,12 +136,20 @@
 
                         <!-- LOGOUT -->
                         <div class="pt-6">
-                            <button @click="logout" class="w-full flex items-center justify-center gap-3 px-6 py-4
-                     bg-danger/10 hover:bg-danger/20 text-danger
-                     rounded-xl font-bold border border-danger/20">
+                            <button @click="logout" :disabled="loggingOut" class="w-full flex items-center justify-center gap-3 px-6 py-4
+                                bg-danger/10 hover:bg-danger/20 text-danger
+                                rounded-xl font-bold border border-danger/20
+                                disabled:opacity-70 disabled:cursor-not-allowed">
 
-                                <span class="material-symbols-outlined">logout</span>
-                                Keluar dari SIMAKSI
+                                <template v-if="!loggingOut">
+                                    <span class="material-symbols-outlined">logout</span>
+                                    Keluar dari SIMAKSI
+                                </template>
+
+                                <template v-else>
+                                    <ion-spinner name="crescent"></ion-spinner>
+                                    Logging out...
+                                </template>
                             </button>
 
                             <p class="mt-6 text-center text-xs text-gray-400 font-medium">
@@ -159,8 +167,9 @@
 </template>
 
 <script setup>
+import api from '@/services/api'
 import LayoutSiswa from '@/layouts/LayoutSiswa.vue'
-import { IonPage, IonContent } from '@ionic/vue'
+import { IonPage, IonContent, IonSpinner } from '@ionic/vue'
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 
@@ -174,11 +183,25 @@ const notifications = ref(true)
 const profilePhoto =
     'https://images.unsplash.com/photo-1607746882042-944635dfe10e?q=80&w=400'
 
-const goBack = () => {
-    router.back()
-}
 
-const logout = () => {
-    router.push('/login')
+
+const loggingOut = ref(false)
+
+const logout = async () => {
+    if (loggingOut.value) return
+
+    loggingOut.value = true
+
+    try {
+        await api.post('/logout')
+    } catch (err) {
+        // kalau API gagal, tetap lanjut bersihin local
+    } finally {
+        localStorage.removeItem('token')
+        localStorage.removeItem('user')
+
+        router.push('/login')
+        loggingOut.value = false
+    }
 }
 </script>

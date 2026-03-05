@@ -73,7 +73,7 @@
                                 </span>
                             </button>
 
-                            <button
+                            <button @click="$router.push('/murid/ganti-password')"
                                 class="w-full flex items-center gap-4 px-4 py-4 border-t border-primary/5 hover:bg-neutral-soft transition-colors group">
                                 <div
                                     class="size-10 flex items-center justify-center rounded-lg bg-primary/10 text-primary">

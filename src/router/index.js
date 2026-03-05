@@ -36,6 +36,14 @@ const routes = [
     {
         path: '/murid/profil',
         component: () => import('../views/siswa/ProfilSiswa.vue')
+    },
+    {
+        path: '/murid/ganti-password',
+        component: () => import('../views/siswa/GantiPassword.vue')
+    },
+    {
+        path: '/guru/ganti-password',
+        component: () => import('../views/guru/GantiPassword.vue')
     }
 
 

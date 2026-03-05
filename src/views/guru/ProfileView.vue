@@ -62,7 +62,7 @@
                         <MenuItem icon="bar_chart" title="Laporan Absen" subtitle="Rekap & statistik kehadiran siswa" />
 
 
-                        <MenuItem icon="lock" title="Ubah Kata Sandi" subtitle="Perbarui keamanan akun" />
+                        <MenuItem icon="lock" title="Ubah Kata Sandi" subtitle="Perbarui keamanan akun" @click="$router.push('/guru/ganti-password')" />
 
                         <MenuItem icon="help_center" title="Pusat Bantuan" subtitle="Butuh bantuan? Hubungi kami" />
 

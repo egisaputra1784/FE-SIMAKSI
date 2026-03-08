@@ -109,6 +109,7 @@
 import { ref } from 'vue'
 import { IonPage, IonContent, IonSpinner } from '@ionic/vue'
 import api from '@/services/api'
+import { showNotify } from "@/stores/notify"
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -135,6 +136,8 @@ const handleLogin = async () => {
     localStorage.setItem('token', token)
     localStorage.setItem('user', JSON.stringify(user))
 
+    showNotify("Login berhasil", "success")
+
     if (user.role === 'guru') {
       router.push('/guru')
     } else if (user.role === 'murid') {
@@ -142,9 +145,18 @@ const handleLogin = async () => {
     }
 
   } catch (err) {
-    alert(err.response?.data?.message || 'Login gagal bro')
+
+    showNotify(
+      err.response?.data?.message || "Login gagal",
+      "error"
+    )
+
   } finally {
     loading.value = false
   }
 }
+
+
+
+
 </script>

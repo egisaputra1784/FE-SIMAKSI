@@ -57,7 +57,7 @@
                     <!-- ================= MENU LIST ================= -->
                     <main class="flex-1 px-4 space-y-3 pb-28">
 
-                        <MenuItem icon="account_circle" title="Informasi Akun" subtitle="Detail data diri dan email" />
+                        <MenuItem icon="account_circle" title="Informasi Akun" subtitle="Detail data diri dan email" @click="$router.push('/guru/detail')" />
 
                         <MenuItem icon="bar_chart" title="Laporan Absen" subtitle="Rekap & statistik kehadiran siswa" />
 
@@ -97,7 +97,7 @@
 
 
 <script setup>
-import { IonPage, IonContent } from '@ionic/vue'
+import { IonPage, IonContent, IonSpinner } from '@ionic/vue'
 import { useRouter } from 'vue-router'
 import MenuItem from '@/components/MenuItem.vue'
 import LayoutGuru from '../../layouts/LayoutGuru.vue';

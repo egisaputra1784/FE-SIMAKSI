@@ -44,6 +44,10 @@ const routes = [
     {
         path: '/guru/ganti-password',
         component: () => import('../views/guru/GantiPassword.vue')
+    },
+    {
+        path: '/guru/detail',
+        component: () => import('../views/guru/DetailProfilGuru.vue')
     }
 
 

@@ -41,10 +41,13 @@ const bukaSesi = async (jadwalId) => {
     // simpan data sesi ke localStorage
     localStorage.setItem('sesi', JSON.stringify(sesiData))
 
-    alert(`Sesi absen dibuka!\nToken: ${sesiData.qr_token}`)
+    showNotify(`Sesi absen dibuka'`, "success")
   } catch (err) {
     console.error(err)
-    alert(err.response?.data?.message || 'Gagal buka sesi absen')
+    showNotify(
+      err.response?.data?.message || "Gagal buka sesi absen",
+      "error"
+    )
   }
 }
 </script>

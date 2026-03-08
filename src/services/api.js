@@ -3,7 +3,8 @@ import axios from 'axios'
 const api = axios.create({
   baseURL: 'https://firmly-splendid-dove.ngrok-free.app/api', // ganti pake URL ngrok lu
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'ngrok-skip-browser-warning': 'true'
   }
 })
 

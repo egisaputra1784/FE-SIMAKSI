@@ -48,11 +48,6 @@
               <template v-else>Loading...</template>
             </button>
 
-            <p v-if="message" :class="{ 'text-green-600': success, 'text-red-600': !success }"
-              class="text-center text-sm">
-              {{ message }}
-            </p>
-
           </div>
 
         </div>
@@ -67,48 +62,51 @@
 import { IonPage, IonContent } from '@ionic/vue'
 import { ref } from 'vue'
 import api from '@/services/api'
+import { showNotify } from "@/stores/notify"
 
 const current_password = ref('')
 const new_password = ref('')
 const new_password_confirmation = ref('')
 
-const message = ref('')
-const success = ref(false)
 const loading = ref(false)
 
 const submitChangePassword = async () => {
+
   if (!current_password.value || !new_password.value || !new_password_confirmation.value) {
-    message.value = 'Semua field harus diisi'
-    success.value = false
+    showNotify("Semua field harus diisi", "error")
+    return
+  }
+  if (new_password.value !== new_password_confirmation.value) {
+    showNotify("Konfirmasi password tidak cocok", "error")
     return
   }
 
   loading.value = true
-  message.value = ''
 
   try {
+
     const res = await api.post('/change-password', {
       current_password: current_password.value,
       new_password: new_password.value,
       new_password_confirmation: new_password_confirmation.value
     })
 
-    message.value = res.data.message
-    success.value = true
+    showNotify(res.data.message || "Password berhasil diganti", "success")
 
     current_password.value = ''
     new_password.value = ''
     new_password_confirmation.value = ''
 
   } catch (err) {
-    if (err.response && err.response.data && err.response.data.message) {
-      message.value = err.response.data.message
-    } else {
-      message.value = 'Terjadi kesalahan, coba lagi'
-    }
-    success.value = false
+
+    showNotify(
+      err.response?.data?.message || "Terjadi kesalahan, coba lagi",
+      "error"
+    )
+
   } finally {
     loading.value = false
   }
+
 }
 </script>

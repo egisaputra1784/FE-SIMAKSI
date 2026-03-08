@@ -42,25 +42,6 @@
 
         </div>
 
-        <!-- SUMMARY -->
-        <div class="grid grid-cols-4 gap-2">
-          <div class="bg-green-50 p-3 rounded-xl text-center">
-            <p class="text-xs">Hadir</p>
-            <p class="text-lg font-bold text-green-600">{{ summary.hadir }}%</p>
-          </div>
-          <div class="bg-blue-50 p-3 rounded-xl text-center">
-            <p class="text-xs">Izin</p>
-            <p class="text-lg font-bold text-blue-600">{{ summary.izin }}%</p>
-          </div>
-          <div class="bg-yellow-50 p-3 rounded-xl text-center">
-            <p class="text-xs">Sakit</p>
-            <p class="text-lg font-bold text-yellow-600">{{ summary.sakit }}%</p>
-          </div>
-          <div class="bg-red-50 p-3 rounded-xl text-center">
-            <p class="text-xs">Alpha</p>
-            <p class="text-lg font-bold text-red-600">{{ summary.alpha }}%</p>
-          </div>
-        </div>
 
         <!-- LIST SISWA -->
         <div class="max-h-[400px] overflow-y-auto space-y-3">

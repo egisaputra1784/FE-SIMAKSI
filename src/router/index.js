@@ -103,6 +103,11 @@ const routes = [
     {
         path: '/murid/ganti-password',
         component: () => import('@/views/siswa/GantiPassword.vue')
+    },
+
+    {
+        path: '/murid/jadwal',
+        component: () => import('@/views/siswa/JadwalSiswa.vue')
     }
 
 ]

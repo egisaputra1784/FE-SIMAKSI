@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <LayoutSiswa>
-
+      <ion-content>
       <!-- TOP BAR -->
       <div class="flex items-center justify-between px-6 pt-6 pb-2 sticky top-0
                 bg-background-light/80 backdrop-blur-md z-10">
@@ -18,41 +18,29 @@
         </div>
       </div>
 
-
       <!-- GREETING -->
       <section class="px-6 pt-6 pb-4">
         <h2 class="text-3xl font-bold tracking-tight">
           Halo, {{ studentName }}
         </h2>
-
         <p class="text-gray-500 text-sm mt-1">
           {{ today }} • {{ timeNow }}
         </p>
       </section>
 
-
-      <!-- SUMMARY -->
+      <!-- SUMMARY / AKTIF -->
       <section class="px-6 mb-8">
-        <div class="grid grid-cols-3 gap-3">
-
-          <div class="bg-white p-4 rounded-xl shadow-sm border flex flex-col items-center">
-            <span class="text-primary font-bold text-xl">2</span>
-            <span class="text-[10px] uppercase text-gray-500 mt-1">Izin</span>
-          </div>
-
-          <div class="bg-white p-4 rounded-xl shadow-sm border flex flex-col items-center">
-            <span class="text-yellow-500 font-bold text-xl">1</span>
-            <span class="text-[10px] uppercase text-gray-500 mt-1">Sakit</span>
-          </div>
-
-          <div class="bg-white p-4 rounded-xl shadow-sm border flex flex-col items-center">
-            <span class="text-red-500 font-bold text-xl">0</span>
-            <span class="text-[10px] uppercase text-gray-500 mt-1">Alpha</span>
-          </div>
-
+        <div v-if="jadwalAktif" class="bg-white p-4 rounded-xl shadow-sm border flex flex-col items-center">
+          <span class="text-primary font-bold text-xl">{{ jadwalAktif.mapel }}</span>
+          <span class="text-[10px] text-gray-500 mt-1">
+            {{ jadwalAktif.kelas }} • {{ jadwalAktif.jam_mulai }} - {{ jadwalAktif.jam_selesai }}
+          </span>
+          <span :class="jadwalAktif.sudah_absen ? 'text-green-600' : 'text-red-500'" class="text-[10px] mt-1 font-bold">
+            {{ jadwalAktif.sudah_absen ? 'Sudah Absen' : 'Belum Absen' }}
+          </span>
         </div>
+        <div v-else class="text-gray-400 text-center text-sm">Tidak ada jadwal aktif saat ini</div>
       </section>
-
 
       <!-- SCAN BUTTON -->
       <section class="px-6 mb-8">
@@ -71,113 +59,82 @@
         </button>
       </section>
 
-
-      <!-- SCHEDULE -->
+      <!-- JADWAL HARI INI -->
       <section class="px-6 space-y-4 pb-28">
         <div class="flex justify-between items-center">
           <h3 class="text-lg font-bold">Jadwal Hari Ini</h3>
-          <button class="text-xs font-bold text-primary">Lihat Semua</button>
+          <button @click="refreshJadwal" class="text-xs font-bold text-primary">Refresh</button>
         </div>
 
-
-        <!-- Card aktif -->
-        <div class="flex gap-4 rounded-xl bg-white p-4 shadow-sm border">
+        <div v-for="j in jadwalHariIni" :key="j.jadwal_id" class="flex gap-4 rounded-xl bg-white p-4 shadow-sm border">
           <div class="flex-1 space-y-1">
-            <span class="text-[10px] font-bold text-green-600 uppercase">
-              Sedang Berlangsung
+            <span class="text-[10px] font-bold" :class="j.sesi_dibuka ? 'text-green-600' : 'text-gray-400'">
+              {{ j.sesi_dibuka ? 'Sedang Berlangsung' : 'Belum ada sesi' }}
             </span>
-
-            <p class="font-bold">Matematika Diskrit</p>
-            <p class="text-xs text-gray-500">08:00 - 09:30 • Lab Komputer A</p>
+            <p class="font-bold">{{ j.mapel }}</p>
+            <p class="text-xs text-gray-500">{{ j.jam_mulai }} - {{ j.jam_selesai }}</p>
+            <p class="text-[10px] mt-1" :class="j.sudah_absen ? 'text-green-600' : 'text-red-500'">
+              {{ j.sudah_absen ? 'Sudah Absen' : 'Belum Absen' }}
+            </p>
           </div>
         </div>
-
-
-        <!-- Card next -->
-        <div class="flex gap-4 rounded-xl bg-white p-4 shadow-sm border opacity-70">
-          <div class="flex-1 space-y-1">
-            <span class="text-[10px] font-bold text-gray-400 uppercase">
-              Selanjutnya
-            </span>
-
-            <p class="font-bold">Bahasa Inggris Teknik</p>
-            <p class="text-xs text-gray-500">10:00 - 11:30 • Gedung B</p>
-          </div>
-        </div>
-
       </section>
-
-
-      <!-- BOTTOM NAV -->
-      <nav class="fixed bottom-0 left-0 right-0
-       bg-white/90 backdrop-blur-lg border-t px-8 py-3
-       flex justify-between">
-
-
-        <button class="flex flex-col items-center text-primary text-[10px] font-bold">
-          <span class="material-symbols-outlined" style="font-variation-settings:'FILL'1">home</span>
-          Beranda
-        </button>
-
-        <button class="flex flex-col items-center text-gray-400 text-[10px]">
-          <span class="material-symbols-outlined">calendar_today</span>
-          Jadwal
-        </button>
-
-        <button class="flex flex-col items-center text-gray-400 text-[10px]">
-          <span class="material-symbols-outlined">history</span>
-          Riwayat
-        </button>
-
-        <button class="flex flex-col items-center text-gray-400 text-[10px]">
-          <span class="material-symbols-outlined">person</span>
-          Profil
-        </button>
-      </nav>
-
+      </ion-content>
     </LayoutSiswa>
   </ion-page>
 </template>
 
-
 <script setup>
-import { IonPage } from '@ionic/vue'
+import { IonPage, IonContent } from '@ionic/vue'
 import LayoutSiswa from '@/layouts/LayoutSiswa.vue'
 import { ref, onMounted } from 'vue'
+import api from '@/services/api'
 
 const studentName = ref('')
 const today = ref('')
 const timeNow = ref('')
 
+const jadwalHariIni = ref([])
+const jadwalAktif = ref(null)
+
 const updateDateTime = () => {
   const now = new Date()
-
   today.value = now.toLocaleDateString('id-ID', {
     weekday: 'long',
     day: 'numeric',
     month: 'long',
     year: 'numeric'
   })
+  timeNow.value = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
+}
 
-  timeNow.value = now.toLocaleTimeString('id-ID', {
-    hour: '2-digit',
-    minute: '2-digit'
-  })
+// load jadwal dari API
+const loadJadwal = async () => {
+  try {
+    const res = await api.get('/jadwal/murid/hari-ini')
+    jadwalHariIni.value = res.data.data.map(j => ({
+      ...j,
+      sudah_absen: j.sudah_absen || false
+    }))
+
+    const now = new Date().toTimeString().slice(0, 5)
+    jadwalAktif.value = jadwalHariIni.value.find(j => now >= j.jam_mulai && now <= j.jam_selesai) || null
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+const refreshJadwal = async () => {
+  await loadJadwal()
 }
 
 onMounted(() => {
-
-  // ambil user dari login
   const user = JSON.parse(localStorage.getItem('user') || '{}')
+  if (user) studentName.value = user.name || ''
 
-  if (user) {
-    studentName.value = user.name || ''
-  }
-
-  // set waktu sekarang
   updateDateTime()
-
-  // update tiap detik biar realtime
   setInterval(updateDateTime, 1000)
+
+  loadJadwal()
 })
 </script>

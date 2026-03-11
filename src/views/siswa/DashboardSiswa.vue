@@ -7,17 +7,15 @@
                 bg-background-light/80 backdrop-blur-md z-10">
 
         <div class="flex items-center gap-3">
-          <div class="size-10 rounded-full bg-primary/10 border-2 border-white overflow-hidden"></div>
+          <span class="material-symbols-outlined text-primary text-5xl">
+            account_circle
+          </span>
 
           <div>
             <p class="text-[10px] uppercase tracking-wider text-primary font-bold">Siswa</p>
             <h1 class="text-sm font-bold">SIMAKSI</h1>
           </div>
         </div>
-
-        <button class="size-10 rounded-full bg-white shadow-sm flex items-center justify-center">
-          <span class="material-symbols-outlined">notifications</span>
-        </button>
       </div>
 
 
@@ -26,8 +24,9 @@
         <h2 class="text-3xl font-bold tracking-tight">
           Halo, {{ studentName }}
         </h2>
+
         <p class="text-gray-500 text-sm mt-1">
-          {{ today }}
+          {{ today }} • {{ timeNow }}
         </p>
       </section>
 
@@ -144,12 +143,41 @@
 <script setup>
 import { IonPage } from '@ionic/vue'
 import LayoutSiswa from '@/layouts/LayoutSiswa.vue'
+import { ref, onMounted } from 'vue'
 
-const studentName = 'Budi'
-const today = new Date().toLocaleDateString('id-ID', {
-  weekday: 'long',
-  day: 'numeric',
-  month: 'long',
-  year: 'numeric'
+const studentName = ref('')
+const today = ref('')
+const timeNow = ref('')
+
+const updateDateTime = () => {
+  const now = new Date()
+
+  today.value = now.toLocaleDateString('id-ID', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  })
+
+  timeNow.value = now.toLocaleTimeString('id-ID', {
+    hour: '2-digit',
+    minute: '2-digit'
+  })
+}
+
+onMounted(() => {
+
+  // ambil user dari login
+  const user = JSON.parse(localStorage.getItem('user') || '{}')
+
+  if (user) {
+    studentName.value = user.name || ''
+  }
+
+  // set waktu sekarang
+  updateDateTime()
+
+  // update tiap detik biar realtime
+  setInterval(updateDateTime, 1000)
 })
 </script>

@@ -23,10 +23,7 @@
             Absensi QR
           </h1>
 
-          <button
-            class="size-10 flex items-center justify-center rounded-full  active:scale-95">
-            <span class="material-symbols-outlined" ></span>
-          </button>
+          <div class="size-10"></div> <!-- placeholder supaya tengah tetap centered -->
         </div>
 
         <!-- CENTER -->
@@ -57,27 +54,6 @@
             <div class="w-full h-full border border-white/20 rounded-xl"></div>
           </div>
 
-          <!-- CONTROLS -->
-          <div class="flex items-center gap-10">
-            <button class="flex flex-col items-center gap-2">
-              <div class="size-14 rounded-full bg-black/40 border border-white/20 flex items-center justify-center">
-                <span class="material-symbols-outlined text-3xl">flashlight_on</span>
-              </div>
-              <span class="text-xs uppercase tracking-widest text-white/70">
-                Senter
-              </span>
-            </button>
-
-            <button class="flex flex-col items-center gap-2">
-              <div class="size-14 rounded-full bg-black/40 border border-white/20 flex items-center justify-center">
-                <span class="material-symbols-outlined text-3xl">image</span>
-              </div>
-              <span class="text-xs uppercase tracking-widest text-white/70">
-                Galeri
-              </span>
-            </button>
-          </div>
-
         </div>
 
         <!-- SAFE AREA -->
@@ -90,54 +66,47 @@
 </template>
 
 <script setup>
-import { IonPage, IonContent, toastController } from '@ionic/vue'
+import { IonPage, IonContent } from '@ionic/vue'
 import { useRouter } from 'vue-router' 
 import { Html5Qrcode } from "html5-qrcode"
 import api from "@/services/api"
 import { onMounted, onBeforeUnmount, ref } from "vue"
+import { showNotify } from "@/stores/notify"
 
 const router = useRouter()
+const goBack = () => router.back()
 
-const goBack = () => {
-  router.back()
-}
 const scanner = ref(null)
 const scanning = ref(false)
 
 const startScanner = async () => {
   const qrRegionId = "qr-reader"
-
   scanner.value = new Html5Qrcode(qrRegionId)
-
   try {
     await scanner.value.start(
-      { facingMode: "environment" }, // kamera belakang
-      {
-        fps: 10,
-        qrbox: 250
-      },
+      { facingMode: "environment" },
+      { fps: 10, qrbox: 250 },
       async (decodedText) => {
         if (scanning.value) return
         scanning.value = true
-
         await handleScan(decodedText)
       }
     )
   } catch (err) {
-    alert("Tidak bisa akses kamera")
+    showNotify("Tidak Bisa Akses Kamera", "error")
   }
 }
 
 const handleScan = async (token) => {
   try {
-    const res = await api.post("/absensi/scan", {
-      token: token
-    })
-
+    const res = await api.post("/absensi/scan", { token })
     alert(res.data.message)
-
+    showNotify("berhasil scan", "success")
   } catch (err) {
-    alert(err.response?.data?.message || "Gagal scan")
+    showNotify(
+      err.response?.data?.message || "scan gagal",
+      "error"
+    )
   } finally {
     stopScanner()
   }
@@ -151,14 +120,8 @@ const stopScanner = async () => {
   }
 }
 
-onMounted(() => {
-  startScanner()
-})
-
-onBeforeUnmount(() => {
-  stopScanner()
-})
-
+onMounted(() => startScanner())
+onBeforeUnmount(() => stopScanner())
 </script>
 
 <style scoped>
@@ -170,6 +133,7 @@ onBeforeUnmount(() => {
 .animate-scan {
   animation: scan 3s linear infinite;
 }
+
 #qr-reader video {
   width: 100% !important;
   height: 100% !important;

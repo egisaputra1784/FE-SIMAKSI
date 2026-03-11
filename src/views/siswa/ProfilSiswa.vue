@@ -1,163 +1,96 @@
 <template>
     <ion-page>
         <LayoutSiswa>
-            <ion-content :fullscreen="true" class="bg-background-light text-[#111318]">
+            <ion-content class="bg-background-light">
 
-                <div class="min-h-screen max-w-md mx-auto flex flex-col">
+                <div class="flex flex-col font-display min-h-full">
 
                     <!-- HEADER -->
-                    <div class="sticky top-0 z-10 flex items-center
-                 bg-white/80 backdrop-blur-md
-                 px-4 py-3 border-b border-primary/10">
+                    <header class="sticky top-0 z-20
+bg-white
+border-b border-primary/10
+px-4 h-16
+flex items-center justify-center">
 
-                        <h1 class="flex-1 text-center text-lg font-bold tracking-tight pr-10">
-                            Profil
+                        <h1 class="text-lg font-bold text-primary">
+                            Profil & Pengaturan
                         </h1>
-                    </div>
 
-                    <!-- PROFILE HEADER -->
-                    <div class="flex flex-col items-center py-8 px-4 bg-white shadow-sm mb-6">
+                    </header>
 
-                        <div class="relative">
-                            <div class="size-32 rounded-full border-4 border-primary/10 p-1">
-                                <div class="h-full w-full rounded-full bg-cover bg-center shadow-inner"
-                                    :style="{ backgroundImage: `url(${profilePhoto})` }">
-                                </div>
-                            </div>
+                    <!-- PROFILE INFO -->
+                    <section class="flex flex-col items-center
+px-6 py-8
+bg-gradient-to-b from-primary/5 to-transparent">
 
-                            <button
-                                class="absolute bottom-1 right-1 bg-primary text-white p-2 rounded-full shadow-lg border-2 border-white">
-                                <span class="material-symbols-outlined text-[18px]">
-                                    photo_camera
-                                </span>
-                            </button>
+                        <div class="size-32 rounded-full
+bg-primary/10
+border-4 border-white
+shadow-lg
+flex items-center justify-center">
+
+                            <span class="material-symbols-outlined text-primary text-6xl">
+                                account_circle
+                            </span>
+
                         </div>
 
-                        <div class="mt-4 text-center">
-                            <h2 class="text-2xl font-bold">
-                                {{ studentName }}
-                            </h2>
+                        <div class="mt-5 text-center">
 
-                            <p class="text-primary font-medium mt-1">
+                            <p class="text-xl font-bold text-primary">
+                                {{ studentName }}
+                            </p>
+
+                            <p class="text-sm text-slate-500 mt-1">
                                 NISN: {{ nisn }}
                             </p>
 
-                            <span class="inline-block mt-2 px-3 py-1 bg-primary/10
-                     text-primary text-xs font-semibold
-                     rounded-full uppercase tracking-wider">
+                            <span class="inline-block mt-3 px-3 py-1 rounded-full
+bg-primary/10 text-primary text-xs font-semibold">
+
                                 {{ kelas }}
+
                             </span>
+
                         </div>
-                    </div>
 
-                    <!-- SETTINGS -->
-                    <div class="flex-1 px-4 space-y-4 pb-10">
+                    </section>
 
-                        <!-- AKUN -->
-                        <p class="text-sm font-semibold text-primary/60 uppercase tracking-widest pl-1">
-                            Akun & Keamanan
+                    <!-- MENU -->
+                    <main class="flex-1 px-4 space-y-3 pb-28">
+
+                        <MenuItem icon="account_circle" title="Informasi Akun" subtitle="Detail data siswa"
+                            @click="$router.push('/murid/detail')" />
+
+                        <MenuItem icon="lock" title="Ubah Kata Sandi" subtitle="Perbarui keamanan akun"
+                            @click="$router.push('/murid/ganti-password')" />
+
+                        <MenuItem icon="help_center" title="Pusat Bantuan" subtitle="Butuh bantuan? Hubungi kami" />
+
+                        <!-- logout -->
+                        <button @click="logout" :disabled="loggingOut" class="mt-6 w-full h-14 rounded-xl
+bg-red-500 text-white font-bold
+shadow-lg active:scale-95
+flex items-center justify-center gap-2
+disabled:opacity-70 disabled:cursor-not-allowed">
+
+                            <template v-if="!loggingOut">
+                                <span class="material-symbols-outlined">logout</span>
+                                Keluar
+                            </template>
+
+                            <template v-else>
+                                <ion-spinner name="crescent"></ion-spinner>
+                                Logging out...
+                            </template>
+
+                        </button>
+
+                        <p class="text-center text-xs text-slate-400 mt-6">
+                            SIMAKSI Mobile v2.4.0
                         </p>
 
-                        <div class="space-y-1 bg-white rounded-xl shadow-sm overflow-hidden border border-primary/5">
-
-                            <button
-                                class="w-full flex items-center gap-4 px-4 py-4 hover:bg-neutral-soft transition-colors group">
-                                <div
-                                    class="size-10 flex items-center justify-center rounded-lg bg-primary/10 text-primary">
-                                    <span class="material-symbols-outlined">person</span>
-                                </div>
-                                <span class="flex-1 text-left font-medium">Edit Profil</span>
-                                <span
-                                    class="material-symbols-outlined text-gray-400 group-hover:translate-x-1 transition-transform">
-                                    chevron_right
-                                </span>
-                            </button>
-
-                            <button @click="$router.push('/murid/ganti-password')"
-                                class="w-full flex items-center gap-4 px-4 py-4 border-t border-primary/5 hover:bg-neutral-soft transition-colors group">
-                                <div
-                                    class="size-10 flex items-center justify-center rounded-lg bg-primary/10 text-primary">
-                                    <span class="material-symbols-outlined">lock</span>
-                                </div>
-                                <span class="flex-1 text-left font-medium">Ganti Password</span>
-                                <span
-                                    class="material-symbols-outlined text-gray-400 group-hover:translate-x-1 transition-transform">
-                                    chevron_right
-                                </span>
-                            </button>
-
-                        </div>
-
-                        <!-- PREFERENSI -->
-                        <p class="text-sm font-semibold text-primary/60 uppercase tracking-widest pl-1 pt-2">
-                            Preferensi
-                        </p>
-
-                        <div class="space-y-1 bg-white rounded-xl shadow-sm overflow-hidden border border-primary/5">
-
-                            <div class="flex items-center gap-4 px-4 py-4">
-                                <div
-                                    class="size-10 flex items-center justify-center rounded-lg bg-primary/10 text-primary">
-                                    <span class="material-symbols-outlined">notifications_active</span>
-                                </div>
-
-                                <div class="flex-1">
-                                    <p class="font-medium">Notifikasi</p>
-                                    <p class="text-xs text-gray-500">
-                                        Aktifkan pengingat jadwal & tugas
-                                    </p>
-                                </div>
-
-                                <input type="checkbox" v-model="notifications"
-                                    class="toggle-checkbox w-5 h-5 accent-primary" />
-                            </div>
-
-                            <button
-                                class="w-full flex items-center gap-4 px-4 py-4 border-t border-primary/5 hover:bg-neutral-soft transition-colors group">
-                                <div
-                                    class="size-10 flex items-center justify-center rounded-lg bg-primary/10 text-primary">
-                                    <span class="material-symbols-outlined">language</span>
-                                </div>
-
-                                <div class="flex-1 text-left">
-                                    <p class="font-medium">Bahasa</p>
-                                </div>
-
-                                <span class="text-sm text-gray-500 mr-1 font-medium">
-                                    Indonesia
-                                </span>
-
-                                <span class="material-symbols-outlined text-gray-400">
-                                    chevron_right
-                                </span>
-                            </button>
-
-                        </div>
-
-                        <!-- LOGOUT -->
-                        <div class="pt-6">
-                            <button @click="logout" :disabled="loggingOut" class="w-full flex items-center justify-center gap-3 px-6 py-4
-                                bg-danger/10 hover:bg-danger/20 text-danger
-                                rounded-xl font-bold border border-danger/20
-                                disabled:opacity-70 disabled:cursor-not-allowed">
-
-                                <template v-if="!loggingOut">
-                                    <span class="material-symbols-outlined">logout</span>
-                                    Keluar dari SIMAKSI
-                                </template>
-
-                                <template v-else>
-                                    <ion-spinner name="crescent"></ion-spinner>
-                                    Logging out...
-                                </template>
-                            </button>
-
-                            <p class="mt-6 text-center text-xs text-gray-400 font-medium">
-                                Version 2.4.0
-                            </p>
-                        </div>
-
-                    </div>
+                    </main>
 
                 </div>
 
@@ -167,41 +100,48 @@
 </template>
 
 <script setup>
-import api from '@/services/api'
-import LayoutSiswa from '@/layouts/LayoutSiswa.vue'
 import { IonPage, IonContent, IonSpinner } from '@ionic/vue'
+import LayoutSiswa from '@/layouts/LayoutSiswa.vue'
+import MenuItem from '@/components/MenuItem.vue'
 import { useRouter } from 'vue-router'
-import { ref } from 'vue'
+import api from '@/services/api'
+import { ref, onMounted } from 'vue'
 
 const router = useRouter()
 
-const studentName = ref('Budi Santoso')
-const nisn = ref('0012345678')
-const kelas = ref('Kelas XII - IPA 1')
-const notifications = ref(true)
-
-const profilePhoto =
-    'https://images.unsplash.com/photo-1607746882042-944635dfe10e?q=80&w=400'
-
-
-
+const studentName = ref('')
+const nisn = ref('')
+const kelas = ref('')
 const loggingOut = ref(false)
 
-const logout = async () => {
-    if (loggingOut.value) return
+onMounted(() => {
+    const stored = localStorage.getItem('user')
+    if (!stored) return
 
+    const user = JSON.parse(stored)
+
+    studentName.value = user.name ?? ''
+    nisn.value = user.nisn ?? ''
+    kelas.value = user.kelas ?? ''
+})
+
+const logout = async () => {
+
+    if (loggingOut.value) return
     loggingOut.value = true
 
     try {
         await api.post('/logout')
     } catch (err) {
-        // kalau API gagal, tetap lanjut bersihin local
     } finally {
+
         localStorage.removeItem('token')
         localStorage.removeItem('user')
 
         router.push('/login')
+
         loggingOut.value = false
     }
+
 }
 </script>

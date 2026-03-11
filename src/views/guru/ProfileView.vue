@@ -57,11 +57,17 @@
                     <!-- ================= MENU LIST ================= -->
                     <main class="flex-1 px-4 space-y-3 pb-28">
 
-                        <MenuItem icon="account_circle" title="Informasi Akun" subtitle="Detail data diri dan email" @click="$router.push('/guru/detail')" />
+                        <MenuItem icon="account_circle" title="Informasi Akun" subtitle="Detail data diri dan email"
+                            @click="$router.push('/guru/detail')" />
 
-                        <MenuItem icon="lock" title="Ubah Kata Sandi" subtitle="Perbarui keamanan akun" @click="$router.push('/guru/ganti-password')" />
+                        <MenuItem icon="lock" title="Ubah Kata Sandi" subtitle="Perbarui keamanan akun"
+                            @click="$router.push('/guru/ganti-password')" />
 
                         <MenuItem icon="help_center" title="Pusat Bantuan" subtitle="Butuh bantuan? Hubungi kami" />
+
+                        <MenuItem icon="analytics" title="Evaluasi Siswa"
+                            subtitle="Lihat hasil evaluasi dan perkembangan siswa"
+                            @click="$router.push('/guru/evaluasi')" />
 
                         <!-- logout -->
                         <button @click="logout" :disabled="loggingOut" class="mt-6 w-full h-14 rounded-xl

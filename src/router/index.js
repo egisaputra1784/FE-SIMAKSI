@@ -108,6 +108,14 @@ const routes = [
     {
         path: '/murid/jadwal',
         component: () => import('@/views/siswa/JadwalSiswa.vue')
+    },
+    {
+        path: '/murid/point',
+        component: () => import('@/views/siswa/PointSiswa.vue')
+    },
+    {
+        path: '/leaderboard',
+        component: () => import('@/views/siswa/LeaderboardPage.vue')
     }
 
 ]

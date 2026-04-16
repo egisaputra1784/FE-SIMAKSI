@@ -48,7 +48,7 @@
           <div v-for="s in students" :key="s.id"
             class="bg-white p-4 rounded-xl shadow flex items-center justify-between">
             <div>
-              <p class="font-semibold text-sm">{{ s.name }}</p>
+              <p class="font-semibold text-sm">{{ s.name }} {{ s.nisn }}</p>
               <p class="text-xs text-slate-400">Hadir {{ s.hadir }} / {{ s.total }}</p>
             </div>
             <div class="text-right">

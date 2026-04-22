@@ -1,7 +1,14 @@
 <template>
   <ion-page class="bg-gray-50 min-h-screen">
     <LayoutSiswa>
-      <ion-content>
+      <ion-content @touchstart="handleTouchStart" @touchend="handleTouchEnd">
+
+        <div v-if="isRefreshing" class="flex justify-center py-4">
+          <span class="material-symbols-outlined animate-spin text-primary text-3xl">
+            refresh
+          </span>
+        </div>
+        
         <div class="p-6 space-y-6">
           <h1 class="text-2xl font-bold">Jadwal Minggu Ini</h1>
 
@@ -57,6 +64,39 @@ import LayoutSiswa from "@/layouts/LayoutSiswa.vue";
 
 const jadwalMinggu = ref([]);
 const loading = ref(true);
+
+const isRefreshing = ref(false)
+
+let startY = 0
+
+const handleTouchStart = (e) => {
+  startY = e.touches[0].clientY
+}
+
+const handleTouchEnd = (e) => {
+  const endY = e.changedTouches[0].clientY
+  const diff = endY - startY
+
+  if (diff > 80) {
+    manualRefresh()
+  }
+}
+
+
+const manualRefresh = async () => {
+  if (isRefreshing.value) return
+
+  isRefreshing.value = true
+  try {
+    await fetchJadwal()
+  } catch (err) {
+    console.error(err)
+  } finally {
+    setTimeout(() => {
+      isRefreshing.value = false
+    }, 600)
+  }
+}
 
 function capitalize(str) {
   if (!str) return "";

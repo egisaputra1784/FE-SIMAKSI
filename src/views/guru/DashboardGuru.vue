@@ -14,7 +14,7 @@
 
           <div>
             <p class="text-primary/70 text-xs font-semibold uppercase tracking-wider">
-              Selamat Pagi
+              Selamat Datang
             </p>
             <h2 class="text-lg font-bold">{{ guruName }}</h2>
           </div>
@@ -22,14 +22,14 @@
       </header>
 
       <!-- SCROLLABLE CONTENT + REFRESH -->
-      <ion-content class="bg-gray-50">
+      <ion-content class="bg-gray-50" @touchstart="handleTouchStart" @touchend="handleTouchEnd">
 
         <!-- PULL TO REFRESH -->
-        <ion-refresher slot="fixed" @ionRefresh="doRefresh">
-          <ion-refresher-content pulling-text="Tarik untuk refresh..." refreshing-spinner="circles"
-            refreshing-text="Menyegarkan...">
-          </ion-refresher-content>
-        </ion-refresher>
+        <div v-if="isRefreshing" class="flex justify-center py-4">
+          <span class="material-symbols-outlined animate-spin text-primary text-3xl">
+            refresh
+          </span>
+        </div>
 
         <!-- MAIN DASHBOARD -->
         <main class="pb-28">
@@ -183,7 +183,22 @@ const totalTidakHadir = ref(0)
 
 const jadwalHariIni = ref([])
 const jadwalAktif = ref(null)
-let refreshInterval = null
+const isRefreshing = ref(false)
+
+let startY = 0
+
+const handleTouchStart = (e) => {
+  startY = e.touches[0].clientY
+}
+
+const handleTouchEnd = (e) => {
+  const endY = e.changedTouches[0].clientY
+  const diff = endY - startY
+
+  if (diff > 80) {
+    manualRefresh()
+  }
+}
 
 const loadSummary = async () => {
   try {
@@ -223,9 +238,7 @@ onMounted(() => {
   loadSummary()
   loadJadwal()
 
-  refreshInterval = setInterval(() => {
-    loadJadwal()
-  }, 300000)
+
 
   const user = JSON.parse(localStorage.getItem('user') || '{}')
   if (user) {
@@ -235,18 +248,20 @@ onMounted(() => {
   }
 })
 
-onUnmounted(() => {
-  if (refreshInterval) clearInterval(refreshInterval)
-})
 
-const doRefresh = async (event) => {
+const manualRefresh = async () => {
+  if (isRefreshing.value) return
+
+  isRefreshing.value = true
   try {
     await loadSummary()
     await loadJadwal()
   } catch (err) {
     console.error(err)
   } finally {
-    event.target.complete()
+    setTimeout(() => {
+      isRefreshing.value = false
+    }, 700)
   }
 }
 </script>

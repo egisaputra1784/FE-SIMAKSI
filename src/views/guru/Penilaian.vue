@@ -5,67 +5,86 @@
             <ion-content class="bg-gray-50">
 
                 <!-- HEADER -->
-                <div class="flex items-center gap-3 px-6 pt-6 pb-4">
+                <div class="flex items-center gap-3 px-5 pt-6 pb-3">
 
-                    <button @click="router.back()" class="material-symbols-outlined text-2xl text-gray-600">
-                        arrow_back
+                    <button @click="router.back()"
+                        class="size-10 bg-white rounded-full shadow flex items-center justify-center active:scale-95 transition">
+                        <span class="material-symbols-outlined text-gray-600">
+                            arrow_back
+                        </span>
                     </button>
 
-                    <h1 class="text-xl font-bold">
-                        Penilaian Siswa
-                    </h1>
+                    <div>
+                        <h1 class="text-lg font-bold">Penilaian Siswa</h1>
+                        <p class="text-xs text-gray-400">Input nilai dengan cepat</p>
+                    </div>
 
                 </div>
 
-                <div class="px-6 pb-10 space-y-6">
+                <div class="px-5 pb-10 space-y-5">
 
                     <!-- PILIH JADWAL -->
-                    <div class="bg-white rounded-2xl shadow-sm p-5 space-y-4">
+                    <div class="bg-white rounded-2xl shadow p-4 space-y-3">
 
-                        <h2 class="font-semibold text-gray-700 text-sm">
+                        <label class="text-xs text-gray-500">
                             Pilih Jadwal Hari Ini
-                        </h2>
+                        </label>
 
-                        <select v-model="jadwal" class="border border-gray-200 rounded-xl px-3 py-2 text-sm w-full">
+                        <select v-model="jadwal"
+                            class="w-full border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary">
 
                             <option value="">
                                 Pilih Jadwal
                             </option>
 
                             <option v-for="j in jadwalList" :key="j.jadwal_id" :value="j">
-
-                                {{ j.mapel }} - {{ j.kelas }} ({{ j.jam_mulai }})
-
+                                {{ j.mapel }} • {{ j.kelas }} ({{ j.jam_mulai }})
                             </option>
 
                         </select>
 
                     </div>
 
+                    <!-- INFO JADWAL -->
+                    <div v-if="jadwal"
+                        class="bg-primary/10 text-primary rounded-xl p-3 text-sm flex items-center gap-2">
+
+                        <span class="material-symbols-outlined text-base">
+                            schedule
+                        </span>
+
+                        {{ jadwal.mapel }} - {{ jadwal.kelas }}
+
+                    </div>
+
 
                     <!-- LIST SISWA -->
-
                     <div v-if="murid.length" class="space-y-3">
 
                         <div v-for="m in murid" :key="m.id"
-                            class="flex items-center justify-between bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                            class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
 
                             <div class="flex items-center gap-3">
 
-                                <span class="material-symbols-outlined text-primary text-3xl">
-                                    account_circle
-                                </span>
+                                <div
+                                    class="size-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
+                                    {{ m.name.charAt(0).toUpperCase() }}
+                                </div>
 
-                                <span class="font-medium text-gray-700">
-                                    {{ m.name }}
-                                </span>
+                                <div>
+                                    <p class="font-semibold text-sm text-gray-700">
+                                        {{ m.name }}
+                                    </p>
+                                    <p class="text-xs text-gray-400">
+                                        Siswa aktif
+                                    </p>
+                                </div>
 
                             </div>
 
-                            <button @click="nilai(m)" class="text-primary font-semibold text-sm">
-
+                            <button @click="nilai(m)"
+                                class="bg-primary text-white text-xs px-4 py-2 rounded-xl active:scale-95 transition">
                                 Nilai
-
                             </button>
 
                         </div>
@@ -74,17 +93,14 @@
 
 
                     <!-- EMPTY STATE -->
-
-                    <div v-else class="flex flex-col items-center justify-center text-gray-400 py-20 space-y-2">
+                    <div v-else class="flex flex-col items-center justify-center text-gray-400 py-20 space-y-3">
 
                         <span class="material-symbols-outlined text-5xl">
                             school
                         </span>
 
-                        <p class="text-sm">
-
-                            {{ jadwal ? 'Belum ada siswa' : 'Pilih jadwal untuk melihat siswa' }}
-
+                        <p class="text-sm text-center">
+                            {{ jadwal ? 'Belum ada siswa di kelas ini' : 'Pilih jadwal dulu biar gak kosong gini' }}
                         </p>
 
                     </div>

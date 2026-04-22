@@ -100,11 +100,12 @@ const startScanner = async () => {
 const handleScan = async (token) => {
   try {
     const res = await api.post("/absensi/scan", { token })
-    alert(res.data.message)
-    showNotify("berhasil scan", "success")
+
+    showNotify(res.data.message || "Berhasil scan", "success")
+
   } catch (err) {
     showNotify(
-      err.response?.data?.message || "scan gagal",
+      err.response?.data?.message || "Scan gagal",
       "error"
     )
   } finally {

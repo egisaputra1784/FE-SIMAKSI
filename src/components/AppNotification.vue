@@ -1,12 +1,8 @@
 <template>
 
-  <div v-if="notify.show"
-       class="fixed inset-0 flex items-center justify-center z-50 pointer-events-none">
+  <div v-if="notify.show" class="fixed top-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none">
 
-    <div
-      class="px-6 py-4 rounded-xl shadow-xl text-white text-sm font-semibold
-             animate-bounce"
-      :class="color">
+    <div class="px-6 py-3 rounded-xl shadow-xl text-white text-sm font-semibold animate-fade-in" :class="color">
 
       {{ notify.message }}
 

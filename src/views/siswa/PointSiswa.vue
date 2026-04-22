@@ -1,7 +1,13 @@
 <template>
     <ion-page>
         <LayoutSiswa>
-            <ion-content class="bg-gray-50">
+            <ion-content @touchstart="handleTouchStart" @touchend="handleTouchEnd">
+
+                <div v-if="isRefreshing" class="flex justify-center py-4">
+                    <span class="material-symbols-outlined animate-spin text-primary text-3xl">
+                        refresh
+                    </span>
+                </div>
 
                 <!-- HEADER -->
                 <div class="px-6 pt-6 pb-4 flex justify-between items-center">
@@ -110,6 +116,7 @@ import { IonPage, IonContent } from '@ionic/vue'
 import LayoutSiswa from '@/layouts/LayoutSiswa.vue'
 import { ref, onMounted, computed } from 'vue'
 import api from '@/services/api'
+import { showNotify } from "@/stores/notify"
 
 const point = ref(0)
 const activeTab = ref('history')
@@ -120,6 +127,46 @@ const myTokens = ref([])
 
 const loading = ref(false)
 const buying = ref(false)
+
+const isRefreshing = ref(false)
+
+let startY = 0
+
+const handleTouchStart = (e) => {
+    startY = e.touches[0].clientY
+}
+
+const handleTouchEnd = (e) => {
+    const endY = e.changedTouches[0].clientY
+    const diff = endY - startY
+
+    if (diff > 80) {
+        manualRefresh()
+    }
+}
+
+
+
+const manualRefresh = async () => {
+    if (isRefreshing.value) return
+
+    isRefreshing.value = true
+
+    try {
+        await Promise.all([
+            loadPoint(),
+            loadHistory(),
+            loadItems(),
+            loadMyTokens()
+        ])
+    } catch (err) {
+        console.error(err)
+    } finally {
+        setTimeout(() => {
+            isRefreshing.value = false
+        }, 600)
+    }
+}
 
 /* ======================
    ICON
@@ -214,9 +261,13 @@ const buyItem = async (itemId) => {
             loadMyTokens()
         ])
 
-        alert('Berhasil beli 😎')
+        showNotify('Berhasil beli 😎', 'success')
+
     } catch (err) {
-        alert(err.response?.data?.message || 'Gagal beli')
+        showNotify(
+            err.response?.data?.message || 'Gagal beli',
+            'error'
+        )
     } finally {
         buying.value = false
     }

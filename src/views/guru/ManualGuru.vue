@@ -108,7 +108,7 @@
 
 
         <!-- ================= FOOTER ================= -->
-        <div class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px]
+        <div class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md md:max-w-2xl lg:max-w-4xl
                  p-4 bg-white/80 backdrop-blur-md border-t border-slate-100">
 
           <button @click="simpanAbsensi" class="w-full h-14 rounded-xl bg-primary text-white font-bold

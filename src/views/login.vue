@@ -1,106 +1,107 @@
 <template>
   <ion-page>
-    <ion-content :fullscreen="true" class="bg-background-light flex flex-col items-center">
+    <ion-content :fullscreen="true" class="bg-slate-50 text-slate-800">
 
-      <!-- iOS Status Spacer -->
-      <div class="h-11 w-full"></div>
+      <div class="min-h-screen w-full max-w-md md:max-w-2xl lg:max-w-4xl mx-auto flex flex-col relative pb-10">
 
-      <div class="w-full max-w-[430px] px-6 flex flex-col min-h-[calc(100vh-44px)]">
+        <!-- ================= MODERN BLUE HEADER (LOGO & BRAND) ================= -->
+        <div
+          class="bg-primary pt-20 pb-32 px-6 rounded-b-[3rem] relative overflow-hidden shadow-2xl shadow-primary/30 flex flex-col items-center">
+          <!-- Decorative Blurs -->
+          <div class="absolute -top-10 -right-10 size-64 rounded-full bg-white/10 blur-3xl"></div>
+          <div class="absolute top-20 -left-10 size-48 rounded-full bg-black/10 blur-3xl"></div>
 
-        <!-- Header -->
-        <div class="flex flex-col items-center pt-12 pb-10">
-          <div class="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
-            <span class="material-symbols-outlined text-primary text-5xl">school</span>
-          </div>
-
-          <h1 class="text-primary text-3xl font-bold tracking-tight">SIMAKSI</h1>
-          <p class="text-slate-500 text-sm mt-2 font-medium text-center">
-            Sistem Monitoring Absensi Kelas Siswa
-          </p>
-        </div>
-
-        <!-- Login Card -->
-        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-
-          <h2 class="text-xl font-bold text-slate-900 mb-1">
-            Welcome Back
-          </h2>
-          <p class="text-slate-500 text-sm mb-8">
-            Please login to access your dashboard
-          </p>
-
-          <form @submit.prevent="handleLogin" class="space-y-5">
-
-            <!-- ID -->
-            <div class="space-y-2">
-              <label class="text-sm font-semibold ml-1">ID Number (NISN/NIP)</label>
-
-              <div class="relative">
-                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
-                  person
-                </span>
-
-                <input v-model="login" type="text" placeholder="Enter your ID"
-                  class="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" />
-              </div>
+          <div class="relative z-10 flex flex-col items-center text-center">
+            <!-- School Icon (Preserved) -->
+            <div
+              class="size-24 bg-white border-[6px] border-white/20 rounded-3xl flex items-center justify-center shadow-xl mb-6">
+              <span class="material-symbols-outlined text-primary text-5xl">school</span>
             </div>
 
-            <!-- Password -->
-            <div class="space-y-2">
-              <label class="text-sm font-semibold ml-1">Password</label>
+            <!-- SIMAKSI Text (Preserved) -->
+            <h1 class="text-white text-[2.5rem] font-black tracking-tight drop-shadow-md leading-none">SIMAKSI</h1>
+            <p class="text-white/80 text-sm mt-3 font-bold tracking-wide px-4 drop-shadow-sm">
+              Sistem Monitoring Absensi Kelas Siswa
+            </p>
+          </div>
+        </div>
 
-              <div class="relative">
-                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
-                  lock
-                </span>
+        <!-- ================= LOGIN CARD OVERLAP ================= -->
+        <div class="px-6 -mt-16 relative z-20 flex-1 flex flex-col mb-8">
+          <div class="bg-white rounded-[2rem] shadow-[0_10px_40px_rgba(0,0,0,0.06)] border border-slate-100 p-8">
 
-                <input :type="showPass ? 'text' : 'password'" v-model="password" placeholder="••••••••"
-                  class="w-full pl-12 pr-12 py-4 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" />
+            <!-- Card Greetings -->
+            <div class="mb-8 text-center">
+              <h2 class="text-3xl font-black text-slate-800 tracking-tight">Welcome Back</h2>
+              <p class="text-slate-400 text-sm font-semibold mt-1">Please login to access your dashboard</p>
+            </div>
 
-                <button type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400"
-                  @click="showPass = !showPass">
-                  <span class="material-symbols-outlined">
-                    {{ showPass ? 'visibility_off' : 'visibility' }}
+            <!-- Login Form -->
+            <form @submit.prevent="handleLogin" class="space-y-6">
+
+              <!-- ID Field -->
+              <div class="space-y-2">
+                <label class="text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1">ID Number
+                  (NISN/NIP)</label>
+                <div class="relative group">
+                  <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                    <span
+                      class="material-symbols-outlined text-slate-400 group-focus-within:text-primary transition-colors">person</span>
+                  </div>
+                  <input v-model="login" type="text" placeholder="Enter your ID" required
+                    class="w-full pl-14 pr-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl text-slate-700 font-bold outline-none focus:bg-white focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all shadow-sm" />
+                </div>
+              </div>
+
+              <!-- Password Field -->
+              <div class="space-y-2">
+                <label class="text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1">Password</label>
+                <div class="relative group">
+                  <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                    <span
+                      class="material-symbols-outlined text-slate-400 group-focus-within:text-primary transition-colors">lock</span>
+                  </div>
+                  <input :type="showPass ? 'text' : 'password'" v-model="password" placeholder="••••••••" required
+                    class="w-full pl-14 pr-14 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl text-slate-700 font-bold outline-none focus:bg-white focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all shadow-sm" />
+
+                  <button type="button" @click="showPass = !showPass" tabindex="-1"
+                    class="absolute inset-y-0 right-0 pr-5 flex items-center text-slate-400 hover:text-primary transition-colors active:scale-95">
+                    <span class="material-symbols-outlined">{{ showPass ? 'visibility_off' : 'visibility' }}</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="pt-3">
+                <button type="submit" :disabled="loading"
+                  class="w-full bg-primary hover:bg-primary/90 text-white font-black tracking-widest uppercase py-4 rounded-2xl shadow-xl shadow-primary/30 active:scale-95 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                  <span v-if="!loading" class="flex items-center gap-2">
+                    Log In
+                    <span class="material-symbols-outlined text-xl">arrow_forward</span>
+                  </span>
+                  <span v-else class="flex items-center gap-2">
+                    <ion-spinner name="crescent"></ion-spinner>
+                    <span class="normal-case tracking-normal font-bold">Processing...</span>
                   </span>
                 </button>
               </div>
-            </div>
 
-            <!-- Login Button -->
-            <button type="submit" :disabled="loading"
-              class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-xl shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2 mt-2 disabled:opacity-70 disabled:cursor-not-allowed">
-              <span v-if="!loading" class="flex items-center gap-2">
-                Log In
-                <span class="material-symbols-outlined text-lg">arrow_forward</span>
-              </span>
-
-              <span v-else class="flex items-center gap-2">
-                <ion-spinner name="crescent"></ion-spinner>
-                Processing...
-              </span>
-            </button>
-
-          </form>
+            </form>
+          </div>
         </div>
 
-        <!-- Footer -->
-        <div class="mt-auto pb-10 pt-8 text-center">
-          <p class="text-slate-500 text-sm">
+        <!-- ================= FOOTER ================= -->
+        <div class="mt-auto pb-4 text-center">
+          <p class="text-slate-500 text-sm font-semibold">
             Don't have an account?
-            <span class="text-primary font-bold ml-1">Contact Admin</span>
+            <span @click="contactAdmin"
+              class="text-primary font-black ml-1 active:opacity-70 transition-opacity cursor-pointer">
+              Contact Admin
+            </span>
           </p>
         </div>
 
-        <!-- Subtle gradient -->
-        <div class="fixed bottom-0 left-0 w-full h-1/4 -z-10 opacity-5">
-          <div class="w-full h-full bg-gradient-to-t from-primary to-transparent"></div>
-        </div>
-
       </div>
-
-      <!-- Fake Home Indicator -->
-      <div class="w-32 h-1.5 bg-slate-300 rounded-full mb-2 mt-auto"></div>
-
     </ion-content>
   </ion-page>
 </template>
@@ -119,6 +120,14 @@ const password = ref('')
 const showPass = ref(false)
 const loading = ref(false)
 
+
+const adminNumber = '6285795847276' // ganti sama nomor kamu (format internasional tanpa +)
+
+const contactAdmin = () => {
+  const message = encodeURIComponent('Halo admin, saya butuh bantuan login SIMAKSI.')
+  window.open(`https://wa.me/${adminNumber}?text=${message}`, '_blank')
+}
+
 const handleLogin = async () => {
   if (loading.value) return
 
@@ -132,6 +141,8 @@ const handleLogin = async () => {
 
     const token = res.data.token
     const user = res.data.user
+
+
 
     localStorage.setItem('token', token)
     localStorage.setItem('user', JSON.stringify(user))

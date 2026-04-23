@@ -116,7 +116,15 @@ const routes = [
     {
         path: '/leaderboard',
         component: () => import('@/views/siswa/LeaderboardPage.vue')
-    }
+    },
+    {
+        path: '/murid/detail',
+        component: () => import('@/views/siswa/DetailProfileSiswa.vue')
+    },
+    {
+        path: '/murid/riwayat',
+        component: () => import('@/views/siswa/RiwayatAbsensi.vue')
+    },
 
 ]
 
@@ -128,24 +136,33 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     try {
         const token = localStorage.getItem('token')
-        let user = null
+        const storedUser = localStorage.getItem('user')
+        const user = storedUser ? JSON.parse(storedUser) : null
 
-        if (token) {
-            const storedUser = localStorage.getItem('user')
-            if (storedUser) {
-                user = JSON.parse(storedUser)
-            }
-        }
-
+        // ❌ belum login
         if (!token && to.path !== '/login') {
-            next('/login')
-        } else if (token && to.path === '/login') {
-            if (user?.role === 'guru') next('/guru')
-            else if (user?.role === 'murid') next('/murid')
-            else next('/login')
-        } else {
-            next()
+            return next('/login')
         }
+
+        // ✅ sudah login tapi ke login lagi
+        if (token && to.path === '/login') {
+            if (user?.role === 'guru') return next('/guru')
+            if (user?.role === 'murid') return next('/murid')
+            return next('/login')
+        }
+
+        // 🔥 PROTECT GURU
+        if (to.path.startsWith('/guru') && user?.role !== 'guru') {
+            return next('/murid')
+        }
+
+        // 🔥 PROTECT MURID
+        if (to.path.startsWith('/murid') && user?.role !== 'murid') {
+            return next('/guru')
+        }
+
+        next()
+
     } catch (e) {
         console.error('Router error:', e)
         next('/login')

@@ -2,21 +2,32 @@
   <ion-page>
     <LayoutGuru>
 
-      <!-- HEADER -->
-      <header class="sticky top-0 z-50 flex items-center justify-between
-             bg-white/95 backdrop-blur-md
-             px-5 py-4 border-b border-primary/10">
+      <!-- HEADER MODERN -->
+      <header class="bg-primary px-6 pt-10 pb-8 rounded-b-[2.5rem] shadow-xl shadow-primary/20 mb-6 relative overflow-hidden">
+        <!-- Abstract gradient overlay -->
+        <div class="absolute -top-10 -right-10 size-48 rounded-full bg-white/10 blur-3xl"></div>
+        <div class="absolute top-10 -left-10 size-32 rounded-full bg-black/10 blur-2xl"></div>
 
-        <div class="flex items-center gap-3">
-          <span class="material-symbols-outlined text-primary text-5xl">
-            account_circle
-          </span>
+        <!-- Top Menu Bar -->
+        <div class="relative z-10 flex justify-between items-center mb-8 text-white">
+          <button class="size-10 bg-white/10 border border-white/20 rounded-xl flex items-center justify-center backdrop-blur-md active:scale-95 transition-all w-10">
+            <span class="material-symbols-outlined">grid_view</span>
+          </button>
+          <span class="text-xs font-bold tracking-widest uppercase opacity-80">Dashboard Guru</span>
+          <button class="size-10 bg-white/10 border border-white/20 rounded-xl flex items-center justify-center backdrop-blur-md active:scale-95 transition-all w-10 relative">
+            <span class="material-symbols-outlined">school</span>
+          </button>
+        </div>
 
-          <div>
-            <p class="text-primary/70 text-xs font-semibold uppercase tracking-wider">
-              Selamat Datang
-            </p>
-            <h2 class="text-lg font-bold">{{ guruName }}</h2>
+        <!-- Profile & Greeting -->
+        <div class="relative z-10 flex items-center justify-between text-white">
+          <div class="flex-1 pr-4">
+            <p class="text-white/70 text-sm font-semibold mb-1">Selamat Datang,</p>
+            <h2 class="text-2xl font-black tracking-tight">{{ guruName || 'Guru' }}</h2>
+          </div>
+          <!-- Normal Profile Avatar -->
+          <div @click="$router.push('/guru/detail')" class="shrink-0 w-14 h-14 bg-white/20 border-2 border-white/50 rounded-full flex items-center justify-center overflow-hidden cursor-pointer active:scale-95 transition-all shadow-sm">
+            <span class="material-symbols-outlined text-3xl text-white">person</span>
           </div>
         </div>
       </header>
@@ -36,21 +47,30 @@
 
           <!-- ===== STATS ===== -->
           <section class="px-5 pt-6">
-            <div class="grid grid-cols-3 gap-3">
+            <div class="grid grid-cols-3 md:grid-cols-3 gap-3 md:gap-6">
 
-              <div class="rounded-xl p-4 text-center bg-primary/5 border border-primary/10">
-                <p class="text-xs mb-1 opacity-60">Total</p>
-                <p class="text-2xl font-bold text-primary">{{ totalSiswa }}</p>
+              <div class="bg-white border border-slate-100 rounded-2xl p-3 shadow-md shadow-slate-200/50 flex flex-col items-center justify-center">
+                <div class="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center mb-1">
+                  <span class="material-symbols-outlined text-blue-600 text-xl block">groups</span>
+                </div>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Total</p>
+                <p class="text-2xl font-black text-slate-800 leading-none">{{ totalSiswa }}</p>
               </div>
 
-              <div class="rounded-xl p-4 text-center bg-green-50 border border-green-100">
-                <p class="text-xs mb-1 text-green-700/60">Hadir</p>
-                <p class="text-2xl font-bold text-green-600">{{ totalHadir }}</p>
+              <div class="bg-white border border-slate-100 rounded-2xl p-3 shadow-md shadow-slate-200/50 flex flex-col items-center justify-center">
+                <div class="w-10 h-10 bg-emerald-50 rounded-full flex items-center justify-center mb-1">
+                  <span class="material-symbols-outlined text-emerald-600 text-xl block">how_to_reg</span>
+                </div>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Hadir</p>
+                <p class="text-2xl font-black text-emerald-600 leading-none">{{ totalHadir }}</p>
               </div>
 
-              <div class="rounded-xl p-4 text-center bg-red-50 border border-red-100">
-                <p class="text-xs mb-1 text-red-700/60">Absen</p>
-                <p class="text-2xl font-bold text-red-500">{{ totalTidakHadir }}</p>
+              <div class="bg-white border border-slate-100 rounded-2xl p-3 shadow-md shadow-slate-200/50 flex flex-col items-center justify-center">
+                <div class="w-10 h-10 bg-rose-50 rounded-full flex items-center justify-center mb-1">
+                  <span class="material-symbols-outlined text-rose-600 text-xl block">person_off</span>
+                </div>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Absen</p>
+                <p class="text-2xl font-black text-rose-600 leading-none">{{ totalTidakHadir }}</p>
               </div>
 
             </div>
@@ -80,36 +100,36 @@
             </button>
 
             <!-- SMALL BUTTONS -->
-            <div class="grid grid-cols-3 gap-4">
+            <div class="grid grid-cols-3 md:grid-cols-3 gap-3 md:gap-6">
 
               <button @click="$router.push('/guru/manual')"
-                class="bg-white border-2 border-primary/10 rounded-2xl p-5 active:scale-95">
-
-                <span class="material-symbols-outlined text-primary text-3xl mb-3 block">
-                  edit_document
-                </span>
-
-                <p class="font-bold">Absensi Manual</p>
+                class="bg-white border border-slate-100 rounded-2xl p-3 shadow-md shadow-slate-200/50 flex flex-col items-center justify-center text-center active:scale-95 transition-all">
+                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-2">
+                  <span class="material-symbols-outlined text-primary text-2xl">
+                    edit_document
+                  </span>
+                </div>
+                <p class="font-bold text-[11px] leading-tight text-slate-700">Absensi<br>Manual</p>
               </button>
 
               <button @click="$router.push('/guru/rekap')"
-                class="bg-white border-2 border-primary/10 rounded-2xl p-5 active:scale-95">
-
-                <span class="material-symbols-outlined text-primary text-3xl mb-3 block">
-                  summarize
-                </span>
-
-                <p class="font-bold">Rekap Kelas</p>
+                class="bg-white border border-slate-100 rounded-2xl p-3 shadow-md shadow-slate-200/50 flex flex-col items-center justify-center text-center active:scale-95 transition-all">
+                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-2">
+                  <span class="material-symbols-outlined text-primary text-2xl">
+                    summarize
+                  </span>
+                </div>
+                <p class="font-bold text-[11px] leading-tight text-slate-700">Rekap<br>Kelas</p>
               </button>
 
               <button @click="$router.push('/guru/penilaian')"
-                class="bg-white border-2 border-primary/10 rounded-2xl p-5 active:scale-95">
-
-                <span class="material-symbols-outlined text-primary text-3xl mb-3 block">
-                  fact_check
-                </span>
-
-                <p class="font-bold text-sm">Penilaian</p>
+                class="bg-white border border-slate-100 rounded-2xl p-3 shadow-md shadow-slate-200/50 flex flex-col items-center justify-center text-center active:scale-95 transition-all">
+                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-2">
+                  <span class="material-symbols-outlined text-primary text-2xl">
+                    fact_check
+                  </span>
+                </div>
+                <p class="font-bold text-[11px] leading-tight text-slate-700">Penilaian</p>
               </button>
 
             </div>

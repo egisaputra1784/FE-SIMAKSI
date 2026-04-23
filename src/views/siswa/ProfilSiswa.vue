@@ -1,99 +1,78 @@
 <template>
     <ion-page>
         <LayoutSiswa>
-            <ion-content class="bg-background-light">
+            <ion-content class="bg-slate-50">
+                <div class="min-h-screen max-w-md md:max-w-2xl lg:max-w-4xl mx-auto flex flex-col relative pb-32">
 
-                <div class="flex flex-col font-display min-h-full">
+                    <!-- ================= MODERN BLUE HEADER ================= -->
+                    <div
+                        class="bg-primary pt-10 pb-20 px-6 rounded-b-[2.5rem] relative overflow-hidden shadow-xl shadow-primary/20">
+                        <div class="absolute -top-10 -right-10 size-48 rounded-full bg-white/10 blur-3xl"></div>
+                        <div class="absolute top-10 -left-10 size-32 rounded-full bg-black/10 blur-2xl"></div>
+                    </div>
 
-                    <!-- HEADER -->
-                    <header class="sticky top-0 z-20
-bg-white
-border-b border-primary/10
-px-4 h-16
-flex items-center justify-center">
+                    <!-- ================= OVERLAPPING AVATAR CARD ================= -->
+                    <div class="px-6 -mt-14 relative z-20">
+                        <div
+                            class="bg-white rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-slate-100 p-5 flex flex-col items-center text-center">
 
-                        <h1 class="text-lg font-bold text-primary">
-                            Profil & Pengaturan
-                        </h1>
+                            <div
+                                class="shrink-0 size-20 rounded-full bg-slate-50 text-primary border-[4px] border-white shadow-md flex items-center justify-center -mt-12 mb-3">
+                                <span class="material-symbols-outlined text-5xl">account_circle</span>
+                            </div>
 
-                    </header>
+                            <h2 class="text-xl font-black text-slate-800 tracking-tight">{{ studentName || 'Siswa' }}
+                            </h2>
+                            <p class="text-primary font-bold text-xs tracking-wide">NISN: {{ nisn || '-' }}</p>
 
-                    <!-- PROFILE INFO -->
-                    <section class="flex flex-col items-center
-px-6 py-8
-bg-gradient-to-b from-primary/5 to-transparent">
-
-                        <div class="size-32 rounded-full
-bg-primary/10
-border-4 border-white
-shadow-lg
-flex items-center justify-center">
-
-                            <span class="material-symbols-outlined text-primary text-6xl">
-                                account_circle
-                            </span>
+                            <div
+                                class="mt-3 inline-flex items-center gap-1.5 bg-blue-50 text-blue-600 px-3 py-1.5 rounded-lg text-xs font-bold tracking-widest shadow-sm border border-blue-100/50">
+                                <span class="material-symbols-outlined text-[15px]">class</span>
+                                Kelas {{ kelas || 'Belum Diatur' }}
+                            </div>
 
                         </div>
+                    </div>
 
-                        <div class="mt-5 text-center">
+                    <!-- ================= MENU LIST ================= -->
+                    <main class="flex-1 px-6 mt-8 space-y-4">
+                        <h3 class="text-slate-400 font-bold uppercase tracking-widest text-[11px] mb-4 ml-2">Pengaturan
+                            Umum</h3>
 
-                            <p class="text-xl font-bold text-primary">
-                                {{ studentName }}
-                            </p>
-
-                            <p class="text-sm text-slate-500 mt-1">
-                                NISN: {{ nisn }}
-                            </p>
-
-                            <span class="inline-block mt-3 px-3 py-1 rounded-full
-bg-primary/10 text-primary text-xs font-semibold">
-
-                                {{ kelas }}
-
-                            </span>
-
+                        <div class="space-y-3">
+                            <MenuItem icon="account_circle" title="Informasi Akun" subtitle="Detail data siswa"
+                                @click="$router.push('/murid/detail')" />
+                            <MenuItem icon="lock" title="Ubah Kata Sandi" subtitle="Perbarui keamanan akun"
+                                @click="$router.push('/murid/ganti-password')" />
+                            <MenuItem icon="history" title="Riwayat Absensi" subtitle="Lihat histori kehadiran"
+                                @click="$router.push('/murid/riwayat')" />
+                            <MenuItem icon="help_center" title="Pusat Bantuan" subtitle="Butuh bantuan? Hubungi kami"
+                                @click="openWhatsApp" />
                         </div>
-
-                    </section>
-
-                    <!-- MENU -->
-                    <main class="flex-1 px-4 space-y-3 pb-28">
-
-                        <MenuItem icon="account_circle" title="Informasi Akun" subtitle="Detail data siswa"
-                            @click="$router.push('/murid/detail')" />
-
-                        <MenuItem icon="lock" title="Ubah Kata Sandi" subtitle="Perbarui keamanan akun"
-                            @click="$router.push('/murid/ganti-password')" />
-
-                        <MenuItem icon="help_center" title="Pusat Bantuan" subtitle="Butuh bantuan? Hubungi kami" />
 
                         <!-- logout -->
-                        <button @click="logout" :disabled="loggingOut" class="mt-6 w-full h-14 rounded-xl
-bg-red-500 text-white font-bold
-shadow-lg active:scale-95
-flex items-center justify-center gap-2
-disabled:opacity-70 disabled:cursor-not-allowed">
-
+                        <button @click="logout" :disabled="loggingOut" class="mt-8 w-full h-[3.5rem] rounded-2xl
+                                bg-red-50 text-red-600 font-black tracking-wide
+                                border border-red-100 shadow-sm active:scale-95 transition-all
+                                flex items-center justify-center gap-2
+                                disabled:opacity-50 disabled:cursor-not-allowed">
                             <template v-if="!loggingOut">
                                 <span class="material-symbols-outlined">logout</span>
-                                Keluar
+                                KELUAR AKUN
                             </template>
 
                             <template v-else>
                                 <ion-spinner name="crescent"></ion-spinner>
-                                Logging out...
+                                Processing...
                             </template>
-
                         </button>
 
-                        <p class="text-center text-xs text-slate-400 mt-6">
+                        <p class="text-center text-xs text-slate-400 mt-8 font-semibold">
                             SIMAKSI Mobile v2.4.0
                         </p>
-
                     </main>
 
                 </div>
-
             </ion-content>
         </LayoutSiswa>
     </ion-page>
@@ -114,15 +93,30 @@ const nisn = ref('')
 const kelas = ref('')
 const loggingOut = ref(false)
 
-onMounted(() => {
+onMounted(async () => {
     const stored = localStorage.getItem('user')
-    if (!stored) return
 
-    const user = JSON.parse(stored)
+    if (stored) {
+        const user = JSON.parse(stored)
 
-    studentName.value = user.name ?? ''
-    nisn.value = user.nisn ?? ''
-    kelas.value = user.kelas ?? ''
+        studentName.value = user.name ?? ''
+        nisn.value = user.nisn ?? ''
+        kelas.value = user.kelas?.nama ?? '-'
+    }
+
+    try {
+        const res = await api.get('/dataProfil')
+        const user = res.data.data
+
+        studentName.value = user.name ?? ''
+        nisn.value = user.nisn ?? ''
+        kelas.value = user.kelas?.nama ?? '-'
+
+        localStorage.setItem('user', JSON.stringify(user))
+
+    } catch (err) {
+        console.error('Gagal fetch profil', err)
+    }
 })
 
 const logout = async () => {
@@ -142,6 +136,17 @@ const logout = async () => {
 
         loggingOut.value = false
     }
+}
 
+const openWhatsApp = () => {
+    const phone = '6285795847276' // 🔥 ganti nomor kamu (format internasional, tanpa +)
+
+    const message = encodeURIComponent(
+        `Halo admin, saya butuh bantuan aplikasi SIMAKSI.`
+    )
+
+    const url = `https://wa.me/${phone}?text=${message}`
+
+    window.open(url, '_blank')
 }
 </script>

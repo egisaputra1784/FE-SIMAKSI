@@ -2,21 +2,35 @@
   <ion-page>
     <LayoutSiswa>
       <ion-content @touchstart="handleTouchStart" @touchend="handleTouchEnd">
-        <!-- TOP BAR -->
-        <div class="flex items-center justify-between px-6 pt-6 pb-2 sticky top-0
-                bg-background-light/80 backdrop-blur-md z-10">
+        <!-- HEADER MODERN -->
+        <header class="bg-primary px-6 pt-10 pb-8 rounded-b-[2.5rem] shadow-xl shadow-primary/20 mb-6 relative overflow-hidden">
+          <!-- Abstract gradient overlay -->
+          <div class="absolute -top-10 -right-10 size-48 rounded-full bg-white/10 blur-3xl"></div>
+          <div class="absolute top-10 -left-10 size-32 rounded-full bg-black/10 blur-2xl"></div>
 
-          <div class="flex items-center gap-3">
-            <span class="material-symbols-outlined text-primary text-5xl">
-              account_circle
-            </span>
+          <!-- Top Menu Bar -->
+          <div class="relative z-10 flex justify-between items-center mb-8 text-white">
+            <button class="size-10 bg-white/10 border border-white/20 rounded-xl flex items-center justify-center backdrop-blur-md active:scale-95 transition-all w-10">
+              <span class="material-symbols-outlined">grid_view</span>
+            </button>
+            <span class="text-xs font-bold tracking-widest uppercase opacity-80">Dashboard Siswa</span>
+            <button class="size-10 bg-white/10 border border-white/20 rounded-xl flex items-center justify-center backdrop-blur-md active:scale-95 transition-all w-10 relative">
+              <span class="material-symbols-outlined">school</span>
+            </button>
+          </div>
 
-            <div>
-              <p class="text-[12px] uppercase tracking-wider text-primary font-bold">Siswa</p>
-              <h1 class="text-sm font-bold">SIMAKSI</h1>
+          <!-- Profile & Greeting -->
+          <div class="relative z-10 flex items-center justify-between text-white">
+            <div class="flex-1 pr-4">
+              <p class="text-white/70 text-sm font-semibold mb-1">Halo Spesial,</p>
+              <h2 class="text-2xl font-black tracking-tight">{{ studentName || 'SIMAKSI' }}</h2>
+            </div>
+            <!-- Normal Profile Avatar -->
+            <div @click="$router.push('/murid/profil')" class="shrink-0 w-14 h-14 bg-white/20 border-2 border-white/50 rounded-full flex items-center justify-center overflow-hidden cursor-pointer active:scale-95 transition-all shadow-sm">
+              <span class="material-symbols-outlined text-3xl text-white">person</span>
             </div>
           </div>
-        </div>
+        </header>
 
         <div v-if="isRefreshing" class="flex justify-center py-4">
           <span class="material-symbols-outlined animate-spin text-primary text-3xl">
@@ -73,17 +87,19 @@
             <button @click="refreshJadwal" class="text-xs font-bold text-primary">Refresh</button>
           </div>
 
-          <div v-for="j in jadwalHariIni" :key="j.jadwal_id"
-            class="flex gap-4 rounded-xl bg-white p-4 shadow-sm border">
-            <div class="flex-1 space-y-1">
-              <span class="text-[10px] font-bold" :class="j.sesi_dibuka ? 'text-green-600' : 'text-gray-400'">
-                {{ j.sesi_dibuka ? 'Sedang Berlangsung' : 'Belum ada sesi' }}
-              </span>
-              <p class="font-bold">{{ j.mapel }}</p>
-              <p class="text-xs text-gray-500">{{ j.jam_mulai }} - {{ j.jam_selesai }}</p>
-              <p class="text-[10px] mt-1" :class="j.sudah_absen ? 'text-green-600' : 'text-red-500'">
-                {{ j.sudah_absen ? 'Sudah Absen' : 'Belum Absen' }}
-              </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div v-for="j in jadwalHariIni" :key="j.jadwal_id"
+              class="flex gap-4 rounded-xl bg-white p-4 shadow-sm border">
+              <div class="flex-1 space-y-1">
+                <span class="text-[10px] font-bold" :class="j.sesi_dibuka ? 'text-green-600' : 'text-gray-400'">
+                  {{ j.sesi_dibuka ? 'Sedang Berlangsung' : 'Belum ada sesi' }}
+                </span>
+                <p class="font-bold">{{ j.mapel }}</p>
+                <p class="text-xs text-gray-500">{{ j.jam_mulai }} - {{ j.jam_selesai }}</p>
+                <p class="text-[10px] mt-1" :class="j.sudah_absen ? 'text-green-600' : 'text-red-500'">
+                  {{ j.sudah_absen ? 'Sudah Absen' : 'Belum Absen' }}
+                </p>
+              </div>
             </div>
           </div>
         </section>

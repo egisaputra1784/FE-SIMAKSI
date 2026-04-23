@@ -37,8 +37,14 @@
             <input type="date" v-model="endDate" class="border rounded-xl px-3 py-2" />
           </div>
 
+          <button v-if="students.length > 0" @click="exportToExcel"
+            class="w-full bg-[#107c41] text-white py-2.5 rounded-xl font-bold active:scale-95 transition flex justify-center items-center gap-2 shadow-sm border border-transparent">
+            <span class="material-symbols-outlined">table_chart</span>
+            Export ke Excel
+          </button>
+
           <button @click="fetchRekap"
-            class="w-full bg-primary text-white py-2 rounded-xl font-semibold active:scale-95 transition">
+            class="w-full bg-primary text-white py-2.5 rounded-xl font-bold active:scale-95 transition flex justify-center items-center gap-2 shadow-sm border border-transparent">
             Tampilkan Rekap
           </button>
 
@@ -58,7 +64,7 @@
             </div>
 
             <div class="text-right">
-              <p class="font-bold text-sm" :class="percentColor(s.percent)">
+              <p class="font-bold text-sm" :class="percentTextColor(s.percent)">
                 {{ s.percent }}%
               </p>
               <p class="text-xs text-gray-400">{{ s.status }}</p>
@@ -96,7 +102,7 @@
           <div>
             <p class="text-sm font-semibold mb-2">Persentase</p>
             <div class="w-full bg-gray-200 rounded-full h-3">
-              <div class="h-3 rounded-full" :class="percentColor(selectedStudent.percent)"
+              <div class="h-3 rounded-full" :class="percentBgColor(selectedStudent.percent)"
                 :style="{ width: selectedStudent.percent + '%' }">
               </div>
             </div>
@@ -200,10 +206,76 @@ const hitungSummary = () => {
   summary.value = { hadir, izin, sakit, alpha }
 }
 
-const percentColor = (p) => {
-  if (p >= 85) return 'text-green-600 bg-green-500'
-  if (p >= 70) return 'text-yellow-600 bg-yellow-500'
-  return 'text-red-600 bg-red-500'
+const percentTextColor = (p) => {
+  if (p >= 85) return 'text-green-600'
+  if (p >= 70) return 'text-yellow-600'
+  return 'text-red-600'
+}
+
+const percentBgColor = (p) => {
+  if (p >= 85) return 'bg-green-500'
+  if (p >= 70) return 'bg-yellow-500'
+  return 'bg-red-500'
+}
+
+const exportToExcel = () => {
+  if (!students.value.length) {
+    showNotify("Tidak ada data untuk diexport", "error")
+    return
+  }
+  
+  // Create HTML Table structure for Excel (XLS)
+  let tableHTML = `
+    <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
+    <head><meta charset="utf-8"></head>
+    <body>
+      <table border="1" cellpadding="5">
+        <thead>
+          <tr>
+            <th style="background-color: #11245c; color: white; font-weight: bold;">Nama Siswa</th>
+            <th style="background-color: #11245c; color: white; font-weight: bold;">Total Hadir</th>
+            <th style="background-color: #11245c; color: white; font-weight: bold;">Total Pertemuan</th>
+            <th style="background-color: #11245c; color: white; font-weight: bold;">Persentase</th>
+            <th style="background-color: #11245c; color: white; font-weight: bold;">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+  `
+  
+  // Format each row
+  students.value.forEach(s => {
+    tableHTML += `
+      <tr>
+        <td>${s.name || ''}</td>
+        <td>${s.hadir || 0}</td>
+        <td>${s.total || 0}</td>
+        <td>${s.percent || 0}%</td>
+        <td>${s.status || ''}</td>
+      </tr>
+    `
+  })
+
+  tableHTML += `
+        </tbody>
+      </table>
+    </body>
+    </html>
+  `
+  
+  // Download logic mapping HTML to Excel format
+  const blob = new Blob([tableHTML], { type: 'application/vnd.ms-excel' })
+  const url = URL.createObjectURL(blob)
+  
+  const link = document.createElement("a")
+  link.setAttribute("href", url)
+  link.setAttribute("download", "Rekap_Kehadiran_Kelas.xls")
+  
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+  URL.revokeObjectURL(url)
+  
+  showNotify("Berhasil export tabel ke Excel", "success")
 }
 
 onMounted(fetchTahunAjar)
